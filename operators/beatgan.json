@@ -1,0 +1,133 @@
+{
+	"conf": {
+		"version": "1.0",
+		"type": "operator",
+		"operator": {
+			"name": "beatgan",
+			"cmd": "beatgan.py",
+			"type": "python",
+			"version": "1.0",
+			"description": "时间序列异常检测",
+			"category": "时间序列挖掘",
+			"developer": "中科院计算所",
+			"input": [
+				{
+					"name": "input",
+					"format": "tensor",
+					"description": "输入文件名"
+				}
+			],
+			"argument": [
+				{
+					"name": "input_path",
+					"type": "string",
+					"required": "true",
+					"default": "inputData/",
+					"description": "输入文件所在目录"
+				},
+				{
+					"name": "attrlabels",
+					"type": "string",
+					"required": "true",
+					"default": "1,2,3",
+					"description": "时间序列的列名，以,隔开"
+				},
+				{
+					"name": "model_path",
+					"type": "string",
+					"required": "true",
+					"default": "/",
+					"description": "模型路径"
+				},
+				{
+					"name": "model_name",
+					"type": "string",
+					"required": "false",
+					"default": "my_model",
+					"description": "模型名字（自定义）"
+				},
+				{
+					"name": "network",
+					"type": "string",
+					"required": "false",
+					"default": "CNN",
+					"description": "模型网络 CNN/RNN"
+				},
+				{
+					"name": "net_type",
+					"type": "string",
+					"required": "false",
+					"default": "gru",
+					"description": "RNN单元 gru/rnn/lstm (仅在network为RNN时有效)"
+				},
+				{
+					"name": "layers",
+					"type": "int",
+					"required": "false",
+					"default": "1",
+					"description": "RNN层数(仅在network为RNN时有效)"
+				},
+				{
+					"name": "hidden_size",
+					"type": "int",
+					"required": "false",
+					"default": "100",
+					"description": "RNN隐层神经元个数(仅在network为RNN时有效)"
+				},
+				{
+					"name": "seq_len",
+					"type": "int",
+					"required": "false",
+					"default": "64",
+					"description": "序列长度"
+				},
+				{
+					"name": "stride",
+					"type": "int",
+					"required": "false",
+					"default": "64",
+					"description": "序列分割滑动步长"
+				},
+				{
+					"name": "input_size",
+					"type": "int",
+					"required": "false",
+					"default": "1",
+					"description": "序列维度"
+				},
+				{
+					"name": "rep_size",
+					"type": "int",
+					"required": "false",
+					"default": "10",
+					"description": "编码长度"
+				},
+				{
+					"name": "batch_size",
+					"type": "int",
+					"required": "false",
+					"default": "64",
+					"description": "batch大小"
+				},
+				{
+					"name": "lamb",
+					"type": "float",
+					"required": "false",
+					"default": "1.0",
+					"description": "lambda参数"
+				}
+			],
+			"output": [
+				{
+					"name": "output",
+					"format": ".txt",
+					"description": "输出异常分值"
+				}
+			],
+			"requirements": {
+				"type": "string",
+				"default": "./requirements.txt"
+			}
+		}
+	}
+}
