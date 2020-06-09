@@ -1,0 +1,65 @@
+{
+	"conf": {
+		"version": "0.1",
+		"type": "operator",
+		"operator": {
+			"name": "summarize",
+			"cmd": "summarize.py",
+			"type": "python",
+			"version": "1.0",
+			"description": "基于 MDL 的图摘要",
+			"category": "图挖掘",
+			"developer": "Houquan Zhou<fuhrer.zhou@gmail.com>",
+			"input": [
+				{
+					"name": "input",
+					"format": "csv",
+					"description": "edgelist 文件路径, 默认格式如下",
+					"table": [
+						{
+							"name": "source",
+							"type": "int",
+							"min": "0",
+							"max": "",
+							"description": "源节点 id"
+						},
+						{
+							"name": "target",
+							"type": "int",
+							"min": "0",
+							"max": "",
+							"description": "目标节点 id"
+						}
+					]
+				}
+			],
+			"argument": [
+				{
+					"name": "dataset",
+					"type": "string",
+					"required": "false",
+					"default": "dataset",
+					"description": "数据集名称"
+				},
+				{
+					"name": "output",
+					"type": "string",
+					"required": "false",
+					"default": "./outputData",
+					"description": "输出结果存放目录"
+				}
+			],
+			"output": [
+				{
+					"name": "output",
+					"format": ".m",
+					"description": "摘要图邻接矩阵"
+				}
+			],
+			"requirements": {
+				"type": "string",
+				"default": "./requirements.txt"
+			}
+		}
+	}
+}

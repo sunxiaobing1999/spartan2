@@ -16,7 +16,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="")
 
     parser.add_argument('input', nargs='?', type=str, default=sys.stdin, help='edgelist 文件路径')
-    parser.add_argument('--dataset', type=str, default='', help='数据集名称')
+    parser.add_argument('--dataset', type=str, default='dataset', help='数据集名称')
     parser.add_argument('-o', '--output', type=str, default='./outputData', help='输出目录')
 
     args = parser.parse_args()
