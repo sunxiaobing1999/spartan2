@@ -152,11 +152,12 @@ if __name__ == "__main__":
 							"description": "长度为16位不连续数字"
 						}
 					]
-				}，
-                {   "name": "model",
-					"format": "",
+				},
+				{   
+                    "name": "model",
+                    "format": "",
                     "description": "训练的模型参数，带路径"
-                }
+				}
 			],
 			"argument": [
 				{
