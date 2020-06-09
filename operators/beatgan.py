@@ -1,6 +1,6 @@
 
 import argparse
-import sys,torch,json
+import sys,torch,json,os
 import sys,os
 sys.path.append("/Users/zhoubin/Project/Lab/spartan2")
 import spartan2.spartan as st
