@@ -113,9 +113,14 @@ if __name__ == "__main__":
 			"cmd": "iat.py",
 			"type": "python",
 			"version": "1.0",
-			"description": "用户时序行为分析及异常检测",
+			"description": "用户时序行为分析及异常检测
+                            ## contributors:
+                            1. S. Liu, xxx@gmail.com
+                            2. ....
+                            ## references:
+                            [1]. xxxxx, KDD 2020",
 			"category": "时间序列挖掘",
-			"developer": "中科院计算所",
+			"developer": "中科院网络数据科学与技术重点实验室",
 			"input": [
 				{
 					"name": "input",
@@ -213,6 +218,7 @@ if __name__ == "__main__":
 }
 
 ```
+算子类别（category）选择范围：数据降维、数据聚类、数据分类、图数据挖掘、时间序列挖掘、文本挖掘、可视化、其他
 
 5. 如何封装日志输出 （建议）
   * 简单做法
