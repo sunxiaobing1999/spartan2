@@ -9,21 +9,22 @@
 			"version": "1.0",
 			"description": "时间序列异常检测",
 			"category": "时间序列挖掘",
-			"developer": "zhoubin",
+			"developer": "中科学院网络数据科学与技术重点实验室",
+            "contributors":"Bin Zhou, 1009675047@qq.com",
 			"input": [
 				{
 					"name": "input",
-					"format": "tensor",
+					"format": "csv",
 					"description": "输入文件名"
 				}
 			],
 			"argument": [
 				{
-					"name": "input_path",
+					"name": "model",
 					"type": "string",
 					"required": "true",
-					"default": "inputData/",
-					"description": "输入文件所在目录"
+					"default": "/",
+					"description": "模型路径"
 				},
 				{
 					"name": "attrlabels",
@@ -33,94 +34,17 @@
 					"description": "时间序列的列名，以,隔开"
 				},
 				{
-					"name": "model_path",
+					"name": "network_config",
 					"type": "string",
 					"required": "true",
-					"default": "/",
-					"description": "模型路径"
-				},
-				{
-					"name": "model_name",
-					"type": "string",
-					"required": "false",
-					"default": "my_model",
-					"description": "模型名字（自定义）"
-				},
-				{
-					"name": "network",
-					"type": "string",
-					"required": "false",
-					"default": "CNN",
-					"description": "模型网络 CNN/RNN"
-				},
-				{
-					"name": "net_type",
-					"type": "string",
-					"required": "false",
-					"default": "gru",
-					"description": "RNN单元 gru/rnn/lstm (仅在network为RNN时有效)"
-				},
-				{
-					"name": "layers",
-					"type": "int",
-					"required": "false",
-					"default": "1",
-					"description": "RNN层数(仅在network为RNN时有效)"
-				},
-				{
-					"name": "hidden_size",
-					"type": "int",
-					"required": "false",
-					"default": "100",
-					"description": "RNN隐层神经元个数(仅在network为RNN时有效)"
-				},
-				{
-					"name": "seq_len",
-					"type": "int",
-					"required": "false",
-					"default": "64",
-					"description": "序列长度"
-				},
-				{
-					"name": "stride",
-					"type": "int",
-					"required": "false",
-					"default": "64",
-					"description": "序列分割滑动步长"
-				},
-				{
-					"name": "input_size",
-					"type": "int",
-					"required": "false",
-					"default": "1",
-					"description": "序列维度"
-				},
-				{
-					"name": "rep_size",
-					"type": "int",
-					"required": "false",
-					"default": "10",
-					"description": "编码长度"
-				},
-				{
-					"name": "batch_size",
-					"type": "int",
-					"required": "false",
-					"default": "64",
-					"description": "batch大小"
-				},
-				{
-					"name": "lamb",
-					"type": "float",
-					"required": "false",
-					"default": "1.0",
-					"description": "lambda参数"
+					"default": "beatgan_config.json",
+					"description": "网络结构配置文件"
 				}
 			],
 			"output": [
 				{
 					"name": "output",
-					"format": ".txt",
+					"format": ".csv",
 					"description": "输出异常分值"
 				}
 			],

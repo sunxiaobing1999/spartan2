@@ -1,0 +1,14 @@
+{
+    "network": "CNN",
+    "net_type": "gru",
+    "layers": 1,
+    "seq_len": 64,
+    "stride": 64,
+    "input_size": 2,
+    "hidden_size": 100,
+    "rep_size": 20,
+    "batch_size": 64,
+    "max_epoch": 5,
+    "lr": 0.01,
+    "lambda":1.0
+}
