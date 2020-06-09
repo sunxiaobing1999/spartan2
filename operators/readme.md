@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # 这样做保证了类似这样的运行方式  cat <input> | <算子程序> -o output.txt 
     #     举例： cat <input>  | wc -l
     parser.add_argument('input', nargs='?', type=str, default=sys.stdin,
-                        help="输入文件名")
+                        help="输入文件名带路径")
 
     # 对于其他需要的输入文件，则添加其他 optional argument，不可作为positional argument, 例如：
     # parser.add_argument('-m', '--model', nargs='?', default='[filename]') #机器学习模型文件
@@ -34,6 +34,9 @@ if __name__ == "__main__":
     # 如果需要其他算子执行过程中的参数，则自行设计optional argument参数的flag，如“-g”, "--gridsize"
     parser.add_argument("-g", "--gridsize", type=int, default=100,
                         help="Histogram的网格数，示例格式:100")
+    # 如果使用神经网络，那么用json配置神经网络
+    # parser.add_argument("--network_config", type=str, default="./config.json",
+    #                     help="神经网络的配置参数文件，json格式")
     parser.add_argument("--delimeter", type=str, default='\x01',
                         help="输入文件分割符;示例1: , 示例2: \x01")
     parser.add_argument("--timeformat", type=str, default='%Y-%m-%d %H:%M:%S',
@@ -125,7 +128,7 @@ if __name__ == "__main__":
 				{
 					"name": "input",
 					"format": "csv",
-					"description": "输入文件路径, 文件格式不限于下面(默认)顺序和时间格式",
+					"description": "输入文件带路径, 文件格式不限于下面(默认)顺序和时间格式",
 					"table": [
 						{
 							"name": "时间",
@@ -149,7 +152,11 @@ if __name__ == "__main__":
 							"description": "长度为16位不连续数字"
 						}
 					]
-				}
+				}，
+                {   "name": "model",
+					"format": "",
+                    "description": "训练的模型参数，带路径"
+                }
 			],
 			"argument": [
 				{
@@ -206,7 +213,22 @@ if __name__ == "__main__":
 				{
 					"name": "output",
 					"format": ".jpg",
-					"description": "输出图片"
+					"description": "输出图片(如果是csv输出一定给出输出的每列的说明)"
+					"table": [
+						{
+							"name": "",
+							"type": "",
+							"min": "",
+							"max": "",
+							"description": ""
+						},{
+							"name": "",
+							"type": "",
+							"min": "",
+							"max": "",
+							"description": ""
+						}
+                    ]
 				}
 			],
 			"requirements": {
