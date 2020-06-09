@@ -9,7 +9,7 @@
 			"version": "1.0",
 			"description": "时间序列异常检测",
 			"category": "时间序列挖掘",
-			"developer": "中科院计算所",
+			"developer": "zhoubin",
 			"input": [
 				{
 					"name": "input",
