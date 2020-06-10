@@ -7,13 +7,13 @@
 			"cmd": "summarize.py",
 			"type": "python",
 			"version": "1.0",
-			"description": "基于 MDL 的图摘要",
+			"description": "基于 MDL 的图摘要，作者：Houquan Zhou<fuhrer.zhou@gmail.com>",
 			"category": "图挖掘",
-			"developer": "Houquan Zhou<fuhrer.zhou@gmail.com>",
+			"developer": "中科院计算所网络数据科学与技术重点实验室",
 			"input": [
 				{
 					"name": "input",
-					"format": "csv",
+					"format": ".edgelist",
 					"description": "edgelist 文件路径, 默认格式如下",
 					"table": [
 						{
@@ -51,9 +51,14 @@
 			],
 			"output": [
 				{
-					"name": "output",
+					"name": "summarized.m",
 					"format": ".m",
-					"description": "摘要图邻接矩阵"
+					"description": "摘要图邻接矩阵，使用 scipy.io 读取"
+				},
+				{
+					"name": "nodes.dict",
+					"format": ".dict",
+					"description": "记录 Supernode 中节点的字典，使用 pickle 读取"
 				}
 			],
 			"requirements": {
