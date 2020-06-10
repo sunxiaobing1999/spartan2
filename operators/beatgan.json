@@ -1,0 +1,87 @@
+{
+	"conf": {
+		"version": "1.0",
+		"type": "operator",
+		"operator": {
+			"name": "beatgan",
+			"cmd": "beatgan.py",
+			"type": "python",
+			"version": "1.0",
+			"description": "时间序列异常检测，contributors: Bin Zhou<1009675047@qq.com>",
+			"category": "时间序列挖掘",
+			"developer": "中国科学院网络数据科学与技术重点实验室",
+			"input": [
+				{
+					"name": "input",
+					"format": "csv",
+					"description": "输入文件名",
+                    "table": [
+						{
+							"name": "时间戳",
+							"type": "int",
+							"min": "0",
+							"max": "",
+							"description": "当前时间戳"
+						},
+						{
+							"name": "维度1",
+							"type": "float",
+							"min": "",
+							"max": "",
+							"description": "维度1的当前时刻值"
+						},
+						{
+							"name": "维度2",
+							"type": "float",
+							"min": "",
+							"max": "",
+							"description": "维度2的当前时刻值"
+						}
+					]
+				},{
+					"name": "model",
+					"type": "string",
+					"required": "true",
+					"default": "/",
+					"description": "模型路径"
+				}
+			],
+			"argument": [
+				{
+					"name": "attrlabels",
+					"type": "string",
+					"required": "true",
+					"default": "1,2,3",
+					"description": "时间序列的列名，以,隔开"
+				},
+				{
+					"name": "network_config",
+					"type": "string",
+					"required": "true",
+					"default": "beatgan_config.json",
+					"description": "网络结构配置文件"
+				}
+			],
+			"output": [
+				{
+					"name": "output",
+					"format": ".csv",
+					"description": "输出异常分值",
+                    "table": [
+						{
+							"name": "异常分值",
+							"type": "float",
+							"min": "0",
+							"max": "",
+							"description": "每一段的异常分值"
+						}
+					]
+				}
+			],
+			"requirements": {
+				"type": "string",
+				"default": "./requirements.txt"
+			}
+		}
+	}
+}
