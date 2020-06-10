@@ -1,8 +1,7 @@
 
 import argparse
 import sys,torch,json,os
-import sys,os
-sys.path.append("/Users/zhoubin/Project/Lab/spartan2")
+import numpy as np
 import spartan2.spartan as st
 
 st.config(st.engine.SINGLEMACHINE)
@@ -46,8 +45,7 @@ if __name__ == "__main__":
     ad_model.init_model(param, device)
 
     beatgan,res = ad_model.run(None, time_series, param, device)
-    
-    with open(args_output,"w") as f:
-        f.write(str(res))
-    
+
+    np.savetxt("foo.csv", res, delimiter=",")
+ 
     
