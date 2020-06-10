@@ -116,12 +116,7 @@ if __name__ == "__main__":
 			"cmd": "iat.py",
 			"type": "python",
 			"version": "1.0",
-			"description": "用户时序行为分析及异常检测
-                            ## contributors:
-                            1. S. Liu, xxx@gmail.com
-                            2. ....
-                            ## references:
-                            [1]. xxxxx, KDD 2020",
+			"description":"(support markdown) 用户时序行为分析及异常检测\\n ## contributors:\\n 1. S. Liu, xxx@gmail.com \\n 2. ....\\n ## references:\\n [1]. xxxxx, KDD 2020",
 			"category": "时间序列挖掘",
 			"developer": "中科院网络数据科学与技术重点实验室",
 			"input": [
@@ -153,10 +148,10 @@ if __name__ == "__main__":
 						}
 					]
 				},
-				{   
-                    "name": "model",
-                    "format": "",
-                    "description": "训练的模型参数，带路径"
+				{ 
+				    "name": "model",
+				    "format": "",
+				    "description": "训练的模型参数，带路径"
 				}
 			],
 			"argument": [
@@ -213,8 +208,8 @@ if __name__ == "__main__":
 			"output": [
 				{
 					"name": "output",
-					"format": ".jpg",
-					"description": "输出图片(如果是csv输出一定给出输出的每列的说明)"
+					"format": "jpg",
+					"description": "输出jpg图片(如果是csv输出一定给出输出的每列的说明,其他可以文字说明)"
 					"table": [
 						{
 							"name": "",
@@ -222,14 +217,15 @@ if __name__ == "__main__":
 							"min": "",
 							"max": "",
 							"description": ""
-						},{
+						},
+						{
 							"name": "",
 							"type": "",
 							"min": "",
 							"max": "",
 							"description": ""
 						}
-                    ]
+					 ]
 				}
 			],
 			"requirements": {
