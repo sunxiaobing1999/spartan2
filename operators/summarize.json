@@ -7,7 +7,7 @@
 			"cmd": "summarize.py",
 			"type": "python",
 			"version": "1.0",
-			"description": "基于 MDL 的图摘要，作者：Houquan Zhou<fuhrer.zhou@gmail.com>",
+			"description": "基于 MDL 的图摘要，\n # contributors\n 1. Houquan Zhou<fuhrer.zhou@gmail.com>",
 			"category": "图挖掘",
 			"developer": "中科院计算所网络数据科学与技术重点实验室",
 			"input": [
@@ -40,13 +40,6 @@
 					"required": "false",
 					"default": "dataset",
 					"description": "数据集名称"
-				},
-				{
-					"name": "output",
-					"type": "string",
-					"required": "false",
-					"default": "./outputData",
-					"description": "输出结果存放目录"
 				}
 			],
 			"output": [
