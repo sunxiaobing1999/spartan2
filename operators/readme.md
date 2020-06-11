@@ -17,13 +17,13 @@
 if __name__ == "__main__":
     #统一使用python包: argparse, 可以把你的程序封装成linux命令行那样方便使用
     import argparse
-    parser = argparse.ArgumentParser(description="") 
+    parser = argparse.ArgumentParser(description="")
 
 	# 如果有input文件输入，或者多个文件路径输入(一般指图片目录、时间序列片段目录),
     # 最多只能定义一个positional argument.
     # 一般将主输入（建议选取文本或字符串较长的输入变量）作为input.
     # 注意positional argument是只按位置识别的程序运行参数，默认如果不给的话是从标准输入流传递数据。
-    # 这样做保证了类似这样的运行方式  cat <input> | <算子程序> -o output.txt 
+    # 这样做保证了类似这样的运行方式  cat <input> | <算子程序> -o output.txt
     #     举例： cat <input>  | wc -l
     parser.add_argument('input', nargs='?', type=str, default=sys.stdin,
                         help="输入文件名带路径")
@@ -209,7 +209,8 @@ if __name__ == "__main__":
 				{
 					"name": "output",
 					"format": "jpg",
-					"description": "输出jpg图片(如果是csv输出一定给出输出的每列的说明,其他可以文字说明)"
+					"description": "输出jpg图片(如果是csv输出一定给出输出的每列的说明,其他可以文字说明)"，
+          "default": "/source/out.jpg",
 					"table": [
 						{
 							"name": "",
