@@ -15,6 +15,7 @@ from .beatgan.BeatGAN_CNN import BeatGAN_CNN
 from .beatgan.BeatGAN_RNN import BeatGAN_RNN
 from .beatgan.preprocess import preprocess_data
 import scipy.sparse.linalg as slin
+import numpy as np
 
 
 class AnomalyDetection:
@@ -139,3 +140,20 @@ class SeriesSummarization:
         result = beatlex.summarize_sequence()
         print('done')
         return result
+
+
+class SeriesSegmetation:
+    @staticmethod
+    def SlideWindow(data,window,stride,out_path):
+        segments=[]
+        for i in range(0,len(data.length),stride):
+            ts = data.attrlists[:, i:i+window]
+            segments.append(ts)
+        segments=np.array(segments)
+        return segments
+            
+    
+    @staticmethod
+    def RPeaks():
+        pass
+    

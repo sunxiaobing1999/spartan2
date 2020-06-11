@@ -54,3 +54,6 @@ class BeatGAN(SeriesAlgorithm):
     def export(self,path):
         self.model.save_model_to(path)
         return self.model
+
+class SlideWindowSeg(SeriesAlgorithm):
+    def run(self,params):
