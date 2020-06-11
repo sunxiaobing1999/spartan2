@@ -44,13 +44,15 @@
 			],
 			"output": [
 				{
-					"name": "summarized.m",
-					"format": ".m",
+					"name": "output1",
+					"format": "m",
+					"default": "summarized.m",
 					"description": "摘要图邻接矩阵，使用 scipy.io 读取"
 				},
 				{
-					"name": "nodes.dict",
-					"format": ".dict",
+					"name": "output2",
+					"format": "pickle",
+					"default": "nodes.pickle",
 					"description": "记录 Supernode 中节点的字典，使用 pickle 读取"
 				}
 			],
