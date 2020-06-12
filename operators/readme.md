@@ -118,6 +118,7 @@ if __name__ == "__main__":
 			"version": "1.0",
 			"description":"(support markdown) 用户时序行为分析及异常检测\\n ## contributors:\\n 1. S. Liu, xxx@gmail.com \\n 2. ....\\n ## references:\\n [1]. xxxxx, KDD 2020",
 			"category": "时间序列挖掘",
+            "tags":["五字以内"，“json list”, "英文3个单词以内"，"最多提供10个"],
 			"developer": "中科院网络数据科学与技术重点实验室",
 			"input": [
 				{
