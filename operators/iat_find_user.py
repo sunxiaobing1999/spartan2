@@ -1,9 +1,11 @@
+# -*- coding:utf-8 -*-
 import argparse
 import sys
 
 import spartan2.basicutil as iatutil
 import spartan2.drawutil as drawutil
 import spartan2.ioutil as ioutil
+import numpy as np
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="")
@@ -29,9 +31,9 @@ if __name__ == "__main__":
                         help="Histogram查询点的纵坐标")
     parser.add_argument("--radius", type=float, default=1,
                         help="Histogram的查询半径")
-    parser.add_argument("-o", "--outfig", type=str, default='/source/out.jpg',
+    parser.add_argument("--outfig", type=str, default='/source/out.jpg',
                     help="图片的输出文件")
-    parser.add_argument("-o", "--outfile", type=str, default='/source/user.txt',
+    parser.add_argument("--outfile", type=str, default='/source/user.txt',
                     help="用户的输出文件")
 
     args = parser.parse_args()
@@ -46,20 +48,19 @@ if __name__ == "__main__":
     argsxlabel = args.xlabel
     argsylabel = args.ylabel
  
-    argsx = argsx.x
-    argsy = argsx.y
-    argsradius = argsx.radius
+    argsx = args.x
+    argsy = args.y
+    argsradius = args.radius
     argsoutfig = args.outfig
     argsoutfile = args.outfile
 
-    # outfile='../output/test.iat'
     aggts = ioutil.extracttimes(argsinput, outfile=None, timeidx=argstimeidx, timeformat=argstimeformat, delimeter=argsdelimeter,
                                 isbyte=True, comments='#', nodetype=str, groupids=argsgroupids)
     instance = iatutil.IAT()
     instance.calaggiat(aggts)
     xs, ys = instance.getiatpairs()
 
-    #rect: instance of class RectHistogram
+    # rect: instance of class RectHistogram
     rect = drawutil.RectHistogram()
     H, xedges, yedges = rect.draw(xs, ys, outfig=argsoutfig, xlabel=argsxlabel, ylabel=argsylabel)
     iatpairs = rect.find_peak_rect(xs, ys, H, xedges, yedges, x=argsx, y=argsy, radius=argsradius)
