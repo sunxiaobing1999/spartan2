@@ -19,13 +19,14 @@ anomaly_detection = system.AnomalyDetection()
 decomposition = system.Decomposition()
 traingle_count = system.TraingleCount()
 series_summarization = system.SeriesSummarization()
+series_segmentation =system.SeriesSegmentation()
 
 # model positions
-ad_policy, tc_policy, ed_policy, ss_policy = None, None, None, None
+ad_policy, tc_policy, ed_policy, ss_policy ,sseg_policy= None, None, None, None, None
 
 
 def config(frame_name):
-    global ad_policy, tc_policy, ed_policy, ss_policy
+    global ad_policy, tc_policy, ed_policy, ss_policy,sseg_policy
     frame = importlib.import_module(frame_name)
 
     # algorithm list
@@ -33,6 +34,7 @@ def config(frame_name):
     tc_policy = frame.TriangleCount
     ed_policy = frame.Decomposition
     ss_policy = frame.SeriesSummarization
+    sseg_policy = frame.SeriesSegmentation
 
 
 def bidegree(edgelist):

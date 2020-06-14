@@ -6,7 +6,7 @@ import os
 import sys
 from abc import abstractmethod, ABCMeta
 from .algorithm.graph import Holoscope, Eaglemine, Fraudar, SVDS
-from .algorithm.time_series import Beatlex,BeatGAN
+from .algorithm.time_series import Beatlex,BeatGAN,SlideWindowSeg,RPeakSeg
 
 
 class Engine:
@@ -56,5 +56,14 @@ class SeriesSummarization(Model):
         alg_name = alg_obj.__name__
         alg_list = {
             'BEATLEX': Beatlex,
+        }
+        return alg_list[alg_name](data, alg_obj, model_name)
+    
+class SeriesSegmentation(Model):
+    def create(self, data: object, alg_obj: "function", model_name: str) -> "result of algorithm":
+        alg_name = alg_obj.__name__
+        alg_list = {
+            'SlideWindow': SlideWindowSeg,
+            'RPeaks':RPeakSeg,
         }
         return alg_list[alg_name](data, alg_obj, model_name)

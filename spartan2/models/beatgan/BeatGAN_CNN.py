@@ -193,7 +193,7 @@ class BeatGAN(AD_Model):
         for i, data in enumerate(self.dataloader):
             self.iteration += 1
 
-            data_X = data
+            data_X,y = data
 
             data_X = data_X.to(self.device)
 
@@ -290,7 +290,7 @@ class BeatGAN(AD_Model):
         rec_diff = []
         with torch.no_grad():
             for i, data in enumerate(dataloader):
-                data_X=data
+                data_X,y=data
                 
 
                 data_X = data_X.to(self.device)

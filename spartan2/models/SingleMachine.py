@@ -16,6 +16,7 @@ from .beatgan.BeatGAN_RNN import BeatGAN_RNN
 from .beatgan.preprocess import preprocess_data
 import scipy.sparse.linalg as slin
 import numpy as np
+from biosppy.signals import ecg
 
 
 class AnomalyDetection:
@@ -142,18 +143,33 @@ class SeriesSummarization:
         return result
 
 
-class SeriesSegmetation:
+class SeriesSegmentation:
     @staticmethod
     def SlideWindow(data,window,stride,out_path):
         segments=[]
-        for i in range(0,len(data.length),stride):
+        for i in range(0,data.length-window,stride):
             ts = data.attrlists[:, i:i+window]
             segments.append(ts)
         segments=np.array(segments)
+        if out_path is not None:
+            np.save(out_path,segments)
         return segments
             
     
     @staticmethod
-    def RPeaks():
-        pass
+    def RPeaks(data,sampling_rate,left_size,right_size,out_path):
+        sig_out = ecg.ecg(signal=data.attrlists[0], sampling_rate=sampling_rate, show=False)
+        r_peaks = sig_out["rpeaks"]
+        segments = []
+        for r_peak in r_peaks:
+            if r_peak-left_size>=0 and r_peak+right_size<data.length:
+                ts = data.attrlists[:, r_peak-left_size:r_peak + right_size]
+                segments.append(ts)
+            
+        segments = np.array(segments)
+        if out_path is not None:
+            np.save(out_path, segments)
+        return segments
+            
+            
     

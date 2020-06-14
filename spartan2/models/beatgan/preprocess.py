@@ -1,33 +1,28 @@
 
 from  torch.utils.data import DataLoader,Dataset
 import torch
+import numpy as np
 
 class MyDataSet(Dataset):
-    def __init__(self, time_series,window,stride):
-        self.data=time_series
-        self.stride=stride
-        self.window=window
+    def __init__(self, segments,labels):
+        self.data=torch.Tensor(segments)
+        self.labels=torch.Tensor(labels)
+        
+        self.data=self.data.transpose(1,2)
 
     def __getitem__(self, index):
-        ts=self.data.attrlists[:,index*self.stride:index*self.stride+self.window]
-        ts=ts.swapaxes(0,1)
-        sample_X=torch.Tensor(ts)
-        
-        return sample_X
+        return self.data[index],self.labels[index]
 
     def __len__(self):
-        return (self.data.length-self.window)//self.stride + 1
+        return self.data.shape[0]
     
     
 
-def preprocess_data(data,is_train,param):
-    window=param["seq_len"]
-    stride=param["stride"]
-    
-    if window&(window-1)!=0:
-        raise Exception("sequence length must be power of 2, current: {}".format(param["seq_len"]))
-    
-    dataset=MyDataSet(data,window,stride)
+def preprocess_data(data,labels=None,param=None,is_train=True):
+    if labels is None:
+        labels=np.zeros([data.shape[0],1])
+        
+    dataset=MyDataSet(data,labels)
     
     data_loader=DataLoader(
         dataset=dataset,
