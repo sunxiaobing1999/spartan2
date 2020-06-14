@@ -73,7 +73,7 @@
 					"name": "gridsize",
 					"type": "int",
 					"required": "false",
-					"default": 100,
+					"default": "100",
 					"description": "Histogram的网格数，示例格式:100"
 				},
 				{
@@ -94,21 +94,21 @@
 					"name": "x",
 					"type": "float",
 					"required": "true",
-					"default": 0,
+					"default": "0",
 					"description": "Histogram查询点的横坐标"
 				},
 				{
 					"name": "y",
 					"type": "float",
 					"required": "true",
-					"default": 0,
+					"default": "0",
 					"description": "Histogram查询点的纵坐标"
 				},
 				{
 					"name": "radius",
 					"type": "float",
 					"required": "true",
-					"default": 1,
+					"default": "1",
 					"description": "Histogram的查询半径"
 				}
 			],

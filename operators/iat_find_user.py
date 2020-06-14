@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 import argparse
 import sys
+sys.path.append('/Users/baby/Documents/GitHub/spartan2/')
 
 import spartan2.basicutil as iatutil
 import spartan2.drawutil as drawutil
@@ -31,14 +32,13 @@ if __name__ == "__main__":
                         help="Histogram查询点的纵坐标")
     parser.add_argument("--radius", type=float, default=1,
                         help="Histogram的查询半径")
-    parser.add_argument('-o1', "--outfig", nargs='?', type=str, default=None,
+    parser.add_argument('-o1', "--outfig", nargs='?', type=str, default='/source/out.jpg',
                     help="图片的输出文件")
     parser.add_argument('-o2', "--outfile", type=str, default='/source/user.txt',
                     help="用户的输出文件")
 
     args = parser.parse_args()
 
-    # infile = './inputData/test.reid.gz'
     argsinput = args.input
     argsgridsize = args.gridsize
     argsdelimeter = args.delimeter
@@ -62,7 +62,7 @@ if __name__ == "__main__":
 
     # rect: instance of class RectHistogram
     rect = drawutil.RectHistogram()
-    H, xedges, yedges = rect.draw(xs, ys, outfig=argsoutfig, xlabel=argsxlabel, ylabel=argsylabel)
+    fig, H, xedges, yedges = rect.draw(xs, ys, outfig=argsoutfig, xlabel=argsxlabel, ylabel=argsylabel)
     iatpairs = rect.find_peak_rect(xs, ys, H, xedges, yedges, x=argsx, y=argsy, radius=argsradius)
     usrlist = instance.find_iatpair_user(iatpairs)
     np.savetxt(np.array(usrlist),  argsoutfile)
