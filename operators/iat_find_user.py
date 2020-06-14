@@ -31,9 +31,9 @@ if __name__ == "__main__":
                         help="Histogram查询点的纵坐标")
     parser.add_argument("--radius", type=float, default=1,
                         help="Histogram的查询半径")
-    parser.add_argument("--outfig", type=str, default='/source/out.jpg',
+    parser.add_argument('-o1', "--outfig", nargs='?', type=str, default=None,
                     help="图片的输出文件")
-    parser.add_argument("--outfile", type=str, default='/source/user.txt',
+    parser.add_argument('-o2', "--outfile", type=str, default='/source/user.txt',
                     help="用户的输出文件")
 
     args = parser.parse_args()

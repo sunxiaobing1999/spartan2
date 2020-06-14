@@ -93,22 +93,22 @@
 				{
 					"name": "x",
 					"type": "float",
-					"required": "false",
-					"default": "0",
+					"required": "true",
+					"default": 0,
 					"description": "Histogram查询点的横坐标"
 				},
 				{
 					"name": "y",
 					"type": "float",
-					"required": "false",
-					"default": "0",
+					"required": "true",
+					"default": 0,
 					"description": "Histogram查询点的纵坐标"
 				},
 				{
 					"name": "radius",
 					"type": "float",
-					"required": "false",
-					"default": "1",
+					"required": "true",
+					"default": 1,
 					"description": "Histogram的查询半径"
 				}
 			],
