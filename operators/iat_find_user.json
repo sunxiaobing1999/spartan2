@@ -120,8 +120,17 @@
 				},
 				{
 					"name": "outfile",
-					"format": "txt",
-					"description": "输出文件"
+					"format": "csv",
+					"description": "输出文件",
+					"table": [
+					{
+					    "name": "用户ID",
+					    "type": "string",
+					    "min": "",
+					    "max": "",
+					    "description": "将用户ID存储为string类型"
+					}
+					]
 				}
 			],
 			"requirements": {
