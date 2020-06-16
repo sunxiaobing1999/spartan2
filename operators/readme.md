@@ -52,8 +52,13 @@ if __name__ == "__main__":
 
     # 如果有输出文件则需要给出 “-o” arguments; 如果是多个输出文件，则“-o1  output1  -o2 output2 ....”
     # 如果 ’-o‘ 之后没有参数，那么默认输出到标准输出流
-    parser.add_argument("-o", "--output", type=str, default='/source/out.jpg',
+    # 如果输出的是文本文件，尽量格式化为csv格式，哪怕只有1列
+    parser.add_argument("-o", "--output", type=str, default='./proc/out.jpg',
                         help="输出文件名")
+    parser.add_argument("-o2", "--output2", type=str, default='./proc/histcoods.csv',
+                        help="输出文件名,csv格式")
+    parser.add_argument("-o3", "--output3", type=str, default='./proc/histvalues.csv',
+                        help="输出文件名,csv格式")
 
     # 版本号
     parser.add_argument('--version', action='version', version='%(prog)s 1.0')
@@ -118,7 +123,7 @@ if __name__ == "__main__":
 			"version": "1.0",
 			"description":"(support markdown) 用户时序行为分析及异常检测\\n ## contributors:\\n 1. S. Liu, xxx@gmail.com \\n 2. ....\\n ## references:\\n [1]. xxxxx, KDD 2020",
 			"category": "时间序列挖掘",
-            "tags":["五字以内", "json list", "英文3个单词以内", "最多提供10个"],
+			"tags":["五字以内", "json list", "英文3个单词以内", "最多提供10个"],
 			"developer": "中科院网络数据科学与技术重点实验室",
 			"input": [
 				{
@@ -207,27 +212,39 @@ if __name__ == "__main__":
 				}
 			],
 			"output": [
-				{
+				 {
 					"name": "output",
 					"format": "jpg",
 					"description": "输出jpg图片(如果是csv输出一定给出输出的每列的说明,其他可以文字说明)"，
-          "default": "/source/out.jpg",
+					"default": "/source/out.jpg",
+				 },
+				 {
+					"name": "output2",
+					"format": "csv",
+					"description": "输出hist的csv文件(输出文件尽量用csv, 哪怕仅有1列)",
 					"table": [
 						{
-							"name": "",
-							"type": "",
+							"name": "IATn坐标分割点",
+							"type": "float",
 							"min": "",
 							"max": "",
 							"description": ""
 						},
 						{
-							"name": "",
+							"name": "IATn+1坐标分割点",
 							"type": "",
 							"min": "",
 							"max": "",
 							"description": ""
 						}
 					 ]
+				},
+				{
+					"name": "histvalues",
+					"format": "pckl",
+					"min": "",
+					"max": "",
+					"description": ""
 				}
 			],
 			"requirements": {
