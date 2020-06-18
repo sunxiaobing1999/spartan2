@@ -24,18 +24,11 @@
                             "description": "当前时间戳"
                         },
                         {
-                            "name": "维度1",
-                            "type": "float",
+                            "name": "维度1-n",
+                            "type": "matrix",
                             "min": "",
                             "max": "",
-                            "description": "维度1的当前时刻值"
-                        },
-                        {
-                            "name": "维度2",
-                            "type": "float",
-                            "min": "",
-                            "max": "",
-                            "description": "维度2的当前时刻值"
+                            "description": "输入数据"
                         }
                     ]
                 }
@@ -47,13 +40,6 @@
                     "required": "true",
                     "default": "Time,ECG,Resp",
                     "description": "时间序列的列名：以','隔开"
-                },
-                {
-                    "name": "time_column_pos",
-                    "type": "int",
-                    "required": "true",
-                    "default": 0,
-                    "description": "时间列的位置"
                 },
                 {
                     "name": "model_config",
