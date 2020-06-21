@@ -35,13 +35,6 @@
             ],
             "argument": [
                 {
-                    "name": "attr_labels",
-                    "type": "string",
-                    "required": "true",
-                    "default": "Time,ECG,Resp",
-                    "description": "时间序列的列名：以','隔开"
-                },
-                {
                     "name": "model_config",
                     "type": "string",
                     "required": "true",
