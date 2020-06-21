@@ -7,8 +7,10 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   spartan.task
+   spartan.backend
+   spartan.model
    spartan.tensor
+   spartan.util
 
 Submodules
 ----------
