@@ -330,7 +330,7 @@ class BeatGAN_RNN(AD_Model):
         for i,data in enumerate(self.dataloader):
             self.iteration+=1
 
-            data_X=data
+            data_X,y=data
             data_cond=None
 
             data_X = data_X.to(self.device)
@@ -423,13 +423,13 @@ class BeatGAN_RNN(AD_Model):
 
 
     def load_model(self,outdir,filename):
-        state=torch.load(os.path.join(outdir,filename))
+        state=torch.load(os.path.join(outdir,filename),map_location=self.device)
         self.encoder.load_state_dict(state["encoder"])
         self.decoder.load_state_dict(state["decoder"])
         self.discriminator.load_state_dict(state["discriminator"])
         
     def load_model_from(self,path):
-        state=torch.load(path)
+        state=torch.load(path,map_location=self.device)
         self.encoder.load_state_dict(state["encoder"])
         self.decoder.load_state_dict(state["decoder"])
         self.discriminator.load_state_dict(state["discriminator"])
@@ -442,7 +442,7 @@ class BeatGAN_RNN(AD_Model):
         data_cond=None
         with torch.no_grad():
             for i, data in enumerate(dataloader):
-                data_X=data
+                data_X,y=data
 
                 data_X = data_X.to(self.device)
 

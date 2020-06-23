@@ -1,0 +1,86 @@
+{
+	"conf": {
+		"version": "1.0",
+		"type": "operator",
+		"operator": {
+			"name": "rpeakseg",
+			"cmd": "rpeakseg.py",
+			"type": "python",
+			"version": "1.0",
+			"description": "时间序列分割，contributors: Bin Zhou<1009675047@qq.com>",
+			"category": "时间序列挖掘",
+			"developer": "中国科学院网络数据科学与技术重点实验室",
+			"input": [
+				{
+					"name": "input",
+					"format": "csv",
+					"description": "输入文件名",
+                    "table": [
+						{
+							"name": "时间戳",
+							"type": "int",
+							"min": "0",
+							"max": "",
+							"description": "当前时间戳"
+						},
+						{
+							"name": "维度1",
+							"type": "float",
+							"min": "",
+							"max": "",
+							"description": "维度1的当前时刻值"
+						},
+						{
+							"name": "维度2",
+							"type": "float",
+							"min": "",
+							"max": "",
+							"description": "维度2的当前时刻值"
+						}
+					]
+				}
+			],
+			"argument": [
+				{
+					"name": "attrlabels",
+					"type": "string",
+					"required": "true",
+					"default": "1,2,3",
+					"description": "时间序列的列名，以,隔开"
+				},
+				{
+					"name": "sample_rate",
+					"type": "int",
+					"required": "true",
+					"default": "360",
+					"description": "采样率"
+				},
+				{
+					"name": "left",
+					"type": "int",
+					"required": "true",
+					"default": "120",
+					"description": "r峰前段长度"
+				},
+				{
+					"name": "right",
+					"type": "int",
+					"required": "true",
+					"default": "136",
+					"description": "r峰后段长度"
+				}
+			],
+			"output": [
+				{
+					"name": "output",
+					"format": ".pkl",
+					"description": "分段后的时间序列(number x dimension x length)",
+				}
+			],
+			"requirements": {
+				"type": "string",
+				"default": "./requirements.txt"
+			}
+		}
+	}
+}
