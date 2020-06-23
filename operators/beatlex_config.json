@@ -1,0 +1,11 @@
+{
+    "signal_freq": 360,
+    "Smin": 180,
+    "Smax": 300,
+    "max_dist": 250,
+    "prediction_length": 0,
+    "model_momentum": 0,
+    "max_vocab": 100,
+    "termination_threshold": 0,
+    "new_cluster_threshold": 0.3
+}

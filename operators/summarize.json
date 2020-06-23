@@ -1,0 +1,65 @@
+{
+    "conf": {
+	"version": "0.1",
+	"type": "operator",
+	"operator": {
+	    "name": "summarize",
+	    "cmd": "summarize.py",
+	    "type": "python",
+	    "version": "1.0",
+	    "description": "基于 MDL 的图摘要，\n # contributors\n 1. Houquan Zhou<fuhrer.zhou@gmail.com>",
+	    "category": "图挖掘",
+	    "developer": "中科院计算所网络数据科学与技术重点实验室",
+	    "input": [
+		{
+		    "name": "input",
+		    "format": ".edgelist",
+		    "description": "edgelist 文件路径, 默认格式如下",
+		    "table": [
+			{
+			    "name": "source",
+			    "type": "int",
+			    "min": "0",
+			    "max": "",
+			    "description": "源节点 id"
+			},
+			{
+			    "name": "target",
+			    "type": "int",
+			    "min": "0",
+			    "max": "",
+			    "description": "目标节点 id"
+			}
+		    ]
+		}
+	    ],
+	    "argument": [
+		{
+		    "name": "dataset",
+		    "type": "string",
+		    "required": "false",
+		    "default": "dataset",
+		    "description": "数据集名称"
+		}
+	    ],
+	    "output": [
+		{
+		    "name": "output1",
+		    "format": "m",
+		    "default": "summarized.m",
+		    "description": "摘要图邻接矩阵，使用 scipy.io 读取"
+		},
+		{
+		    "name": "output2",
+		    "format": "pickle",
+		    "default": "nodes.pickle",
+		    "description": "记录 Supernode 中节点的字典，使用 pickle 读取"
+		}
+	    ],
+	    "requirements": {
+		"type": "string",
+		"default": "./requirements.txt"
+	    }
+	}
+    }
+}
