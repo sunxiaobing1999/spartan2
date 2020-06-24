@@ -14,8 +14,6 @@ if __name__ == "__main__":
 
     parser.add_argument("--model", type=str, default="/",
                         help="模型路径")
-    parser.add_argument("--attrlabels",type=str,default="1,2,3",
-                        help="时间序列的列名，以,分割")
     parser.add_argument("--network_config", type=str, default="beatgan_config.json",
                         help="网络配置文件")
 
@@ -24,7 +22,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     args_input = args.input
-    args_attrlabels=args.attrlabels.split(",")
     args_model_path=args.model
     args_config=args.network_config
     
@@ -34,9 +31,10 @@ if __name__ == "__main__":
     
 
     # load time data
-    data = st.loadTensor(name=input_name, path=input_path, col_types=[float, float, float], hasvalue=True)
-    time_series = data.toTimeseries(attrlabels=args_attrlabels)
-    ad_model = st.anomaly_detection.create(time_series, st.ad_policy.BEATGAN, "my_model")
+    
+    ts_seg=np.load(args.input)
+    
+    ad_model = st.anomaly_detection.create(None, st.ad_policy.BEATGAN, "my_model")
 
     with open(args_config, 'r') as load_f:
         param = json.load(load_f)
@@ -44,7 +42,7 @@ if __name__ == "__main__":
 
     ad_model.init_model(param, device)
 
-    beatgan,res = ad_model.run(None, time_series, param, device)
+    beatgan,res = ad_model.run(None, ts_seg, param, device)
 
     np.savetxt("foo.csv", res, delimiter=",")
  

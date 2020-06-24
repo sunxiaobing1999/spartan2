@@ -193,7 +193,7 @@ class BeatGAN(AD_Model):
         for i, data in enumerate(self.dataloader):
             self.iteration += 1
 
-            data_X = data
+            data_X,y = data
 
             data_X = data_X.to(self.device)
 
@@ -276,12 +276,12 @@ class BeatGAN(AD_Model):
         torch.save(state, path)
 
     def load_model(self, outdir, filename):
-        state = torch.load(os.path.join(outdir, filename))
+        state = torch.load(os.path.join(outdir, filename),map_location=self.device)
         self.generator.load_state_dict(state["generator"])
         self.discriminator.load_state_dict(state["discriminator"])
 
     def load_model_from(self,path):
-        state = torch.load(path)
+        state = torch.load(path,map_location=self.device)
         self.generator.load_state_dict(state["generator"])
         self.discriminator.load_state_dict(state["discriminator"])
         
@@ -290,7 +290,7 @@ class BeatGAN(AD_Model):
         rec_diff = []
         with torch.no_grad():
             for i, data in enumerate(dataloader):
-                data_X=data
+                data_X,y=data
                 
 
                 data_X = data_X.to(self.device)

@@ -1,0 +1,79 @@
+{
+	"conf": {
+		"version": "1.0",
+		"type": "operator",
+		"operator": {
+			"name": "slidewindowseg",
+			"cmd": "slidewindowseg.py",
+			"type": "python",
+			"version": "1.0",
+			"description": "时间序列分割，contributors: Bin Zhou<1009675047@qq.com>",
+			"category": "时间序列挖掘",
+			"developer": "中国科学院网络数据科学与技术重点实验室",
+			"input": [
+				{
+					"name": "input",
+					"format": "csv",
+					"description": "输入文件名",
+                    "table": [
+						{
+							"name": "时间戳",
+							"type": "int",
+							"min": "0",
+							"max": "",
+							"description": "当前时间戳"
+						},
+						{
+							"name": "维度1",
+							"type": "float",
+							"min": "",
+							"max": "",
+							"description": "维度1的当前时刻值"
+						},
+						{
+							"name": "维度2",
+							"type": "float",
+							"min": "",
+							"max": "",
+							"description": "维度2的当前时刻值"
+						}
+					]
+				}
+			],
+			"argument": [
+				{
+					"name": "attrlabels",
+					"type": "string",
+					"required": "true",
+					"default": "1,2,3",
+					"description": "时间序列的列名，以,隔开"
+				},
+				{
+					"name": "window",
+					"type": "int",
+					"required": "true",
+					"default": "64",
+					"description": "窗口大小"
+				},
+				{
+					"name": "stride",
+					"type": "int",
+					"required": "true",
+					"default": "32",
+					"description": "窗口滑动步长"
+				}
+			],
+			"output": [
+				{
+					"name": "output",
+					"format": ".pkl",
+					"description": "分段后的时间序列(number x dimension x length)",
+				}
+			],
+			"requirements": {
+				"type": "string",
+				"default": "./requirements.txt"
+			}
+		}
+	}
+}

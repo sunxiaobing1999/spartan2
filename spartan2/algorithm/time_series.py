@@ -42,15 +42,25 @@ class BeatGAN(SeriesAlgorithm):
         return result
     
     def train(self,time_series):
-        train_loader=preprocess_data(time_series,True,self.param)
+        train_loader=preprocess_data(time_series,labels=None,param=self.param,is_train=True)
         self.model.dataloader=train_loader
         self.model.train()
     
     def test(self,time_series):
-        test_loader=preprocess_data(time_series,False,self.param)
+        test_loader=preprocess_data(time_series,labels=None,param=self.param,is_train=False)
         self.model.dataloader = test_loader
         return self.model.test()
         
     def export(self,path):
         self.model.save_model_to(path)
         return self.model
+
+class SlideWindowSeg(SeriesAlgorithm):
+    def run(self,window,stride,out_path):
+        result = self.alg_func(self.data, window, stride, out_path)
+        return result
+    
+class RPeakSeg(SeriesAlgorithm):
+    def run(self,sampling_rate,left_size,right_size,out_path):
+        result = self.alg_func(self.data,sampling_rate,left_size,right_size,out_path)
+        return result
