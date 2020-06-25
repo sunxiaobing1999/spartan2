@@ -44,6 +44,6 @@ if __name__ == "__main__":
 
     beatgan,res = ad_model.run(None, ts_seg, param, device)
 
-    np.savetxt("foo.csv", res, delimiter=",")
+    np.savetxt("foo.csv", res[0], delimiter=",")
  
     

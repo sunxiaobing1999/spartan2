@@ -399,7 +399,7 @@ class BeatGAN_RNN(AD_Model):
         self.discriminator.eval()
 
         rec_diff = self.get_diff(self.dataloader, self.param,save_pic=False)
-        print(rec_diff)
+        # print(rec_diff)
         return rec_diff
 
 
@@ -439,6 +439,9 @@ class BeatGAN_RNN(AD_Model):
     def get_diff(self,dataloader,config,save_pic=False):
 
         rec_diff = []
+        ori_ts = []
+        rec_ts = []
+        rec_err = []
         data_cond=None
         with torch.no_grad():
             for i, data in enumerate(dataloader):
@@ -453,7 +456,13 @@ class BeatGAN_RNN(AD_Model):
                 mse_metric = torch.mean(torch.sum(torch.pow(data_X - rec_x, 2), dim=2),
                                         dim=1).detach().cpu().numpy()
                 rec_diff.append(mse_metric)
+                ori_ts.append(data_X.detach().cpu().numpy())
+                rec_ts.append(rec_x.detach().cpu().numpy())
+                rec_err.append(torch.sum(torch.pow(data_X - rec_x, 2), dim=2).detach().cpu().numpy())
 
         rec_diff = np.concatenate(rec_diff)
+        ori_ts = np.concatenate(ori_ts)
+        rec_ts = np.concatenate(rec_ts)
+        rec_err = np.concatenate(rec_err)
 
-        return rec_diff
+        return rec_diff,ori_ts,rec_ts,rec_err

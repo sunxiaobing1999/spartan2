@@ -93,7 +93,7 @@ class AnomalyDetection:
     
     @staticmethod
     def BEATGAN(model,data,param,outpath,name,device):
-        dataloader=preprocess_data(data,None,param)
+        dataloader=preprocess_data(data,None,param,is_train=False)
         
         if model is None:
             if param["network"]=="CNN":

@@ -323,3 +323,26 @@ class RectHistogram:
         pairids = list(xcoords & ycoords)
         coordpairs = list(zip(xs[pairids], ys[pairids]))
         return coordpairs
+    
+    
+def draw_ts_heatmap(input,output,max_heat,min_heat):
+    x_points = np.arange(input.shape[0])
+    fig, ax = plt.subplots(2, 1, sharex=True,figsize=(6, 6),gridspec_kw = {'height_ratios':[6,1]})
+    sig_in = input
+    sig_out = output
+    ax[0].plot(x_points, sig_in,'k-',linewidth=2.5,label="input signal")
+    ax[0].plot(x_points,sig_out,'k--',linewidth=2.5,label="output signal")
+    ax[0].set_yticks([])
+
+    ax[0].legend(loc="upper right")
+
+
+
+    heat=(sig_out-sig_in)**2
+    heat_norm=(heat-min_heat)/(max_heat-min_heat)
+    heat_norm=np.reshape(heat_norm,(1,-1))
+
+    ax[1].imshow(heat_norm, cmap="jet", aspect="auto")
+    ax[1].set_yticks([])
+    fig.tight_layout()
+  
