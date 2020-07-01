@@ -47,6 +47,24 @@
                             "description": "每一段的异常分值"
                         }
                     ]
+                },
+                {
+                    "name": "output1",
+                    "format": ".pkl",
+                    "required": "false",
+                    "description": "原始时间序列段"
+                },
+                {
+                    "name": "output2",
+                    "format": ".pkl",
+                    "required": "false",
+                    "description": "重构时间序列段"
+                },
+                {
+                    "name": "output3",
+                    "format": ".csv",
+                    "required": "false",
+                    "description": "每段序列每一时刻异常分值"
                 }
             ],
             "requirements": {

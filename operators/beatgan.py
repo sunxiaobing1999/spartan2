@@ -1,5 +1,5 @@
 
-import argparse
+import argparse,pickle
 import sys,torch,json,os
 import numpy as np
 import spartan2.spartan as st
@@ -18,6 +18,12 @@ if __name__ == "__main__":
                         help="网络配置文件")
 
     parser.add_argument("-o", "--output", type=str, default='output.csv',
+                        help="输出文件名")
+    parser.add_argument("-o", "--output1", type=str, default='',
+                        help="输出文件名")
+    parser.add_argument("-o", "--output2", type=str, default='',
+                        help="输出文件名")
+    parser.add_argument("-o", "--output3", type=str, default='',
                         help="输出文件名")
     args = parser.parse_args()
 
@@ -44,6 +50,18 @@ if __name__ == "__main__":
 
     beatgan,res = ad_model.run(None, ts_seg, param, device)
 
-    np.savetxt("foo.csv", res[0], delimiter=",")
+    np.savetxt(args.output, res[0], delimiter=",")
+    
+    if args.output1!="":
+        with open(args.output1,"wb" ) as f:
+            pickle.dump(res[1],f)
+            
+    if args.output2!="":
+        with open(args.output2,"wb" ) as f:
+            pickle.dump(res[2],f)
+            
+    if args.output3!="":
+        np.savetxt(args.output3, res[3], delimiter=",")
+        
  
     
