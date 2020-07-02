@@ -25,6 +25,9 @@
                 }
             ],
             "argument": [
+
+            ],
+	    "config": [
                 {
                     "name": "network_config",
                     "type": "string",
@@ -32,7 +35,7 @@
                     "default": "beatgan_config.json",
                     "description": "网络结构配置文件"
                 }
-            ],
+	    ],
             "output": [
                 {
                     "name": "output",

@@ -24,16 +24,16 @@ if __name__ == "__main__":
     args_input = args.input
     args_model_path=args.model
     args_config=args.network_config
-    
+
     args_output = args.output
 
     input_path,input_name=os.path.split(args_input)
-    
+
 
     # load time data
-    
+
     ts_seg=np.load(args.input)
-    
+
     ad_model = st.anomaly_detection.create(None, st.ad_policy.BEATGAN, "my_model")
 
     with open(args_config, 'r') as load_f:

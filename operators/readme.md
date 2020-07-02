@@ -1,11 +1,11 @@
-## 怎么样包装你的程序给算子使用
+## 怎么样包装你的程序成为算子
 1. 不论是什么语言写的算子，我们统一使用python做封装，写wrapper。
 算法的实现可以是能够被python调用的任何语言。算法包需要能在ubuntu 16.04以上版本的环境下能编译运行。
 1. 将你的算法或模型封装一个或几个可以供python调用的函数
 2. 写一个以你<算子名字>命名的python文件： <算子名字>.py
 3. 在<算子名字>.py里，写一个main运行的方式
 
-  * 例子1
+- 例子1 单个输入文件、输出文件、多个optional arguments
 
 ```python
 # 例子 1
@@ -69,48 +69,38 @@ if __name__ == "__main__":
 
 ```
 
-  * 例子2
+- 例子2: 多个输入文件(第一个为positional argument，第二个为 optional argument),
+      参数以json配置文件形式给出，多见于神经网络算子
 
 ```python
-    # 多个输入参数的例子2
-    import argparse
-    parser = argparse.ArgumentParser()
-    # 主输入
-    parser.add_argument('input', nargs='?', default=sys.stdin, help='''\
-	The input file name with path.
-	eg. ./*.edgelist.
-    ''' )
-    # 时间序列输入
-    parser.add_argument('--propts', nargs=1, type=str, help='''*ts.dict for time series,\
-        e.g. yelpts.dict[.gz]'''
-    )
-    # 打分属性输入
-    parser.add_argument('--proprt', nargs=1, type=str, help='''*rate.dict for rating, \
-	e.g. yelprate.dict[.gz]'''
-    )
-    parser.add_argument('-n', '--nblocks', nargs='?', help='''The number of dense blocks \
-	to detect (default:1)''', default=1, type=int)
+    # 多个输入参数的例子2, 参数以json文件形式给出
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument('input', nargs='?', type=str, default=sys.stdin,
+                        help="输入文件名")
 
-    # 枚举可选择的变量值 choices
-    parser.add_argument('-m', '--method', nargs='?', help='''The method used to detect fraud''',
-	choices=['HS', 'FR'], type=str, default='HS')
-
+    parser.add_argument("--model", type=str, default="/",
+                        help="模型路径")
+    parser.add_argument("--network_config", type=str, default="beatgan_config.json",
+                        help="网络配置文件")
     # 输出文件路径
-    parser.add_argument('-o', '--outpath', help="output path (default:./testout/).",
-	default='./output/')
-
-    # bool类型参数
-    parser.add_argument('-t', action='store_true',
-            help='consider time series. Need *ts.dict[.gz] file')
-    parser.add_argument('-s', action='store_true',
-            help='consider rating scores. Need *rate.dict[.gz] file')
+    parser.add_argument("-o", "--output", type=str, default='output.csv',
+                        help="输出文件名")
     args = parser.parse_args()
 
-    # 利用传入的参数，调用算子函数
+    args_input = args.input
+    args_model_path=args.model
+    args_config=args.network_config
 
+    args_output = args.output
+
+    # 利用传入的参数，调用算子函数
 ```
 
 4. 写算子描述文件，在json文件中的requirements.txt里写明安装依赖环境的脚本或python包
+
+- 例子1 单个输入文件、输出文件、多个optional arguments
+
 ```json
 {
 	"conf": {
@@ -216,7 +206,7 @@ if __name__ == "__main__":
 					"name": "output",
 					"format": "jpg",
 					"description": "输出jpg图片(如果是csv输出一定给出输出的每列的说明,其他可以文字说明)"，
-					"default": "/source/out.jpg",
+					"default": "/source/out.jpg"
 				 },
 				 {
 					"name": "output2",
@@ -254,20 +244,86 @@ if __name__ == "__main__":
 		}
 	}
 }
-
+ # 算子类别（category）选择范围：数据降维、数据聚类、数据分类、图数据挖掘、时间序列挖掘、文本挖掘、可视化、其他
 ```
-算子类别（category）选择范围：数据降维、数据聚类、数据分类、图数据挖掘、时间序列挖掘、文本挖掘、可视化、其他
+
+- 例2 用配置文件json代替参数传递，多用于神经网络算子. "argument"字段为空，配置文件"json"的指定放入config字段。
+
+```json
+{
+	"conf": {
+		"version": "1.0",
+		"type": "operator",
+		"operator": {
+		"name": "beatgan",
+            	"cmd": "beatgan.py",
+            	"type": "python",
+            	"version": "1.0",
+            	"description": "时间序列异常检测，contributors: Bin Zhou<1009675047@qq.com>",
+            	"category": "时间序列挖掘",
+            	"developer": "中国科学院网络数据科学与技术重点实验室",
+            	"input": [
+            	    {
+            	        "name": "input",
+            	        "format": "pkl",
+            	        "description": "输入文件名（分割好的时间序列）"
+            	    },
+            	    {
+            	        "name": "model",
+            	        "type": "string",
+            	        "required": "true",
+            	        "default": "/",
+            	        "description": "模型路径"
+            	    }
+            	],
+            	"argument": [
+
+            	],
+	    	"config": [
+            	    {
+            	        "name": "network_config",
+            	        "type": "string",
+            	        "required": "true",
+            	        "default": "beatgan_config.json",
+            	        "description": "网络结构配置文件"
+            	    }
+	    	],
+            	"output": [
+            	    {
+            	        "name": "output",
+            	        "format": ".csv",
+            	        "description": "输出异常分值",
+            	        "table": [
+            	            {
+            	                "name": "异常分值",
+            	                "type": "float",
+            	                "min": "0",
+            	                "max": "",
+            	                "description": "每一段的异常分值"
+            	            }
+            	        ]
+            	    }
+            	],
+            	"requirements": {
+            	    "type": "string",
+            	    "default": "./requirements.txt"
+            	}
+        }
+    }
+}
+```
 
 5. 如何封装日志输出 （建议）
-  * 简单做法
+- 简单做法
+
 ```python
 # 单独封装log的打印，这样后续如果需要输出日志文件也可以方便调整
 def log(context):
     print "["+time.ctime()+"]"+context
     sys.stdout.flush()
-
 ```
-  * 丰富做法利用python包 [logging](https://docs.python.org/3/howto/logging.html#logging-advanced-tutorial)
+
+- 丰富做法利用python包 [logging](https://docs.python.org/3/howto/logging.html#logging-advanced-tutorial)
 
 ```python
 import logging
@@ -293,7 +349,7 @@ logger.error('error message')
 logger.critical('critical message')
 ```
 
-  * 使用配置文件
+- 使用配置文件
 
 ```python
 import logging
