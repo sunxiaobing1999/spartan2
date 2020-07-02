@@ -23,8 +23,8 @@ class Algorithm():
 
 
 class Holoscope(Algorithm):
-    def run(self, k):
-        self.alg_func(self.data, self.out_path, self.name, k)
+    def run(self, k, **param):
+        self.alg_func(self.data, self.out_path, self.name, k, param['eps'])
 
 
 class Fraudar(Algorithm):

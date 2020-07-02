@@ -21,14 +21,15 @@ from biosppy.signals import ecg
 
 class AnomalyDetection:
     @staticmethod
-    def HOLOSCOPE(graph, out_path, file_name, k):
+    def HOLOSCOPE(graph, out_path, file_name, k, eps=1.6):
         sparse_matrix = graph.sm
         sparse_matrix = sparse_matrix.asfptype()
         ptype = [Ptype.freq]
         alg = 'fastgreedy'
         qfun, b = 'exp', 32  # 10 #4 #8 # 32
         tunit = 'd'
-        bdres = HoloScope(sparse_matrix, alg, ptype, qfun=qfun, b=b, tunit=tunit, nblock=k)
+        bdres = HoloScope(sparse_matrix, alg, ptype, qfun=qfun, b=b,
+                tunit=tunit, nblock=k, eps=eps)
         opt = bdres[-1]
         for nb in range(k):
             res = opt.nbests[nb]
@@ -90,26 +91,24 @@ class AnomalyDetection:
                     node_cluster[cluster_id].append(node_id)
 
         return node_cluster
-    
+
     @staticmethod
     def BEATGAN(model,data,param,outpath,name,device):
         dataloader=preprocess_data(data,None,param,is_train=False)
-        
+
         if model is None:
             if param["network"]=="CNN":
                 model=BeatGAN_CNN(param,dataloader,device,outpath)
             elif param["network"]=="RNN":
                 model=BeatGAN_RNN(param,dataloader,device,outpath)
-                
+
             else:
                 raise Exception("no this network:{}".format(param["network"]))
-            
+
             model.load_model_from(param["model_path"])
         model.dataloader=dataloader
         res=model.test()
         return model,res
-            
-            
 
 
 class Decomposition:
@@ -154,8 +153,8 @@ class SeriesSegmentation:
         if out_path is not None:
             np.save(out_path,segments)
         return segments
-            
-    
+
+
     @staticmethod
     def RPeaks(data,sampling_rate,left_size,right_size,out_path):
         sig_out = ecg.ecg(signal=data.attrlists[0], sampling_rate=sampling_rate, show=False)
@@ -165,11 +164,11 @@ class SeriesSegmentation:
             if r_peak-left_size>=0 and r_peak+right_size<data.length:
                 ts = data.attrlists[:, r_peak-left_size:r_peak + right_size]
                 segments.append(ts)
-            
+
         segments = np.array(segments)
         if out_path is not None:
             np.save(out_path, segments)
         return segments
-            
-            
-    
+
+
+

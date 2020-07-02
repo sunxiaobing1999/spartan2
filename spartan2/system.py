@@ -58,7 +58,7 @@ class SeriesSummarization(Model):
             'BEATLEX': Beatlex,
         }
         return alg_list[alg_name](data, alg_obj, model_name)
-    
+
 class SeriesSegmentation(Model):
     def create(self, data: object, alg_obj: "function", model_name: str) -> "result of algorithm":
         alg_name = alg_obj.__name__
@@ -67,3 +67,4 @@ class SeriesSegmentation(Model):
             'RPeaks':RPeakSeg,
         }
         return alg_list[alg_name](data, alg_obj, model_name)
+
