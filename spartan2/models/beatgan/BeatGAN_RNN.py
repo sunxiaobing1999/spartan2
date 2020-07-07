@@ -465,4 +465,7 @@ class BeatGAN_RNN(AD_Model):
         rec_ts = np.concatenate(rec_ts)
         rec_err = np.concatenate(rec_err)
 
+        ori_ts = np.transpose(ori_ts, axes=(0, 2, 1))
+        rec_ts = np.transpose(rec_ts, axes=(0, 2, 1))
+
         return rec_diff,ori_ts,rec_ts,rec_err

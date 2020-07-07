@@ -326,10 +326,20 @@ class RectHistogram:
     
     
 def draw_ts_heatmap(input,output,max_heat,min_heat):
-    x_points = np.arange(input.shape[0])
+    '''
+
+    :param input:  dim x seq_len
+    :param output: dim x seq_len
+    :param max_heat: 
+    :param min_heat: 
+    :return: 
+    '''
+    sig_in = input.transpose()
+    sig_out = output.transpose()
+    
+    x_points = np.arange(sig_in.shape[0])
     fig, ax = plt.subplots(2, 1, sharex=True,figsize=(6, 6),gridspec_kw = {'height_ratios':[6,1]})
-    sig_in = input
-    sig_out = output
+    
     ax[0].plot(x_points, sig_in,'k-',linewidth=2.5,label="input signal")
     ax[0].plot(x_points,sig_out,'k--',linewidth=2.5,label="output signal")
     ax[0].set_yticks([])
