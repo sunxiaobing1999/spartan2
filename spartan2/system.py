@@ -5,7 +5,7 @@
 import os
 import sys
 from abc import abstractmethod, ABCMeta
-from .algorithm.graph import Holoscope, Eaglemine, Fraudar, SVDS
+from .algorithm.graph import Holoscope, Eaglemine, Fraudar, SVDS, EigenPluse
 from .algorithm.time_series import Beatlex,BeatGAN,SlideWindowSeg,RPeakSeg
 
 
@@ -32,12 +32,13 @@ class TraingleCount(Model):
 
 class AnomalyDetection(Model):
     def create(self, data: list, alg_obj: "function", model_name: str) -> "result of algorithm":
-        alg_name = alg_obj.__name__
+        alg_name = alg_obj
         alg_list = {
             'HOLOSCOPE': Holoscope,
             'EAGLEMINE': Eaglemine,
             'FRAUDAR': Fraudar,
-            'BEATGAN':BeatGAN
+            'BEATGAN':BeatGAN,
+            'EIGENPLUSE': EigenPluse
         }
         return alg_list[alg_name](data, alg_obj, model_name)
 
