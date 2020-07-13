@@ -7,7 +7,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   spartan.model.task
+   spartan.model.beatlex
 
 Module contents
 ---------------
