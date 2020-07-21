@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    spartan.model.beatlex
+   spartan.model.holoscope
 
 Module contents
 ---------------

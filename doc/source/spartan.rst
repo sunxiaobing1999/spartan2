@@ -9,7 +9,9 @@ Subpackages
 
    spartan.backend
    spartan.model
+   spartan.task
    spartan.tensor
+   spartan.test
    spartan.util
 
 Submodules
