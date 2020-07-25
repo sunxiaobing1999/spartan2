@@ -32,7 +32,7 @@ class TraingleCount(Model):
 
 class AnomalyDetection(Model):
     def create(self, data: list, alg_obj: "function", model_name: str) -> "result of algorithm":
-        alg_name = alg_obj
+        alg_name = alg_obj.__name__
         alg_list = {
             'HOLOSCOPE': Holoscope,
             'EAGLEMINE': Eaglemine,

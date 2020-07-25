@@ -5,7 +5,7 @@
 import os
 
 from .holoscope.holoscopeFraudDect import Ptype, HoloScope, scoreLevelObjects
-from .fraudar.greedy import logWeightedAveDegree, np
+from .fraudar.greedy import aveDegree, np
 from .ioutil import saveSimpleListData, loadedgelist2sm
 from .eaglemine.src.eaglemine_main import eaglemine
 from .eaglemine.src.graph2histogram import histogram_construct
@@ -44,7 +44,7 @@ class AnomalyDetection:
     def FRAUDAR(graph, out_path, file_name):
         sparse_matrix = graph.sm
         sparse_matrix = sparse_matrix.asfptype()
-        res = logWeightedAveDegree(sparse_matrix)
+        res = aveDegree(sparse_matrix)
         print(res)
         np.savetxt("%s.rows" % (out_path + file_name, ), np.array(list(res[0][0])), fmt='%d')
         np.savetxt("%s.cols" % (out_path + file_name, ), np.array(list(res[0][1])), fmt='%d')

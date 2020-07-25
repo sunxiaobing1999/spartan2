@@ -153,7 +153,7 @@ def logWeightedAveDegree(M):
 
 def aveDegree(M):
     m, n = M.shape
-    return fastGreedyDecreasing(M, [1] * n)
+    return fastGreedyDecreasing(sparse.lil_matrix(M), [1] * n)
 
 def subsetAboveDegree(M, col_thres, row_thres):
     M = M.tocsc()
@@ -176,14 +176,16 @@ def fastGreedyDecreasing(M, colWeights):
     Ml = M.tolil()
     Mlt = M.transpose().tolil()
     rowSet = set(range(0, m))
-    colSet = set(range(0, n))
-    curScore = c2Score(M, rowSet, colSet)
-    bestAveScore = curScore / (len(rowSet) + len(colSet))
-    bestSets = (rowSet, colSet)
+    # colSet = set(range(0, n))
+    curScore = c2Score(M, rowSet, rowSet)
+    print("curScore", curScore)
+    bestAveScore = curScore / (len(rowSet) + len(rowSet))
+    bestSets = (rowSet, rowSet)
     print("finished setting up greedy")
     rowDeltas = np.squeeze(M.sum(axis=1).A) # *decrease* in total weight when *removing* this row
-    colDeltas = np.squeeze(M.sum(axis=0).A)
+    rowDeltas = np.squeeze(M.sum(axis=0).A)
     print("finished setting deltas")
+    print(rowDeltas)
     rowTree = MinTree(rowDeltas)
     colTree = MinTree(colDeltas)
     print("finished building min trees")
@@ -192,16 +194,18 @@ def fastGreedyDecreasing(M, colWeights):
     deleted = []
     bestNumDeleted = 0
 
-    while rowSet and colSet:
-        if (len(colSet) + len(rowSet)) % 100000 == 0:
-            print("current set size = ", len(colSet) + len(rowSet))
+    while rowSet:
+        if (len(rowSet) + len(rowSet)) % 100000 == 0:
+            print("current set size = ", len(rowSet) + len(rowSet))
         (nextRow, rowDelt) = rowTree.getMin()
+        print("delting", nextRow, rowDelt)
         (nextCol, colDelt) = colTree.getMin()
         if rowDelt <= colDelt:
             curScore -= rowDelt
             for j in Ml.rows[nextRow]:
                 delt = colWeights[j]
-                colTree.changeVal(j, -colWeights[j])
+                rowTree.changeVal(j, -colWeights[j])
+                print("neiborgh", j, delt)
             rowSet -= {nextRow}
             rowTree.changeVal(nextRow, float('inf'))
             deleted.append((0, nextRow))
@@ -215,7 +219,7 @@ def fastGreedyDecreasing(M, colWeights):
             deleted.append((1, nextCol))
 
         numDeleted += 1
-        curAveScore = curScore / (len(colSet) + len(rowSet))
+        curAveScore = curScore / (len(rowSet) + len(rowSet))
 
         if curAveScore > bestAveScore:
             bestAveScore = curAveScore
