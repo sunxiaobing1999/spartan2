@@ -1,37 +1,37 @@
 # encoding: utf-8
+import spartan as st
 import os
 import pickle
 import sys
 
-import numpy as np
-import scipy
 import scipy.sparse as ssp
 
-import sys
 dir_ = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(dir_)
-import spartan2.spartan as st
-from spartan2.models.summarize.summarizer import Summarizer
+
 
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description="")
 
-    parser.add_argument('input', nargs='?', type=str, default=sys.stdin, help='edgelist 文件路径')
-    parser.add_argument('--dataset', type=str, default='dataset', help='数据集名称')
-    parser.add_argument('-o1', '--output1', default='./summarized.m', help='输出文件：邻接矩阵')
-    parser.add_argument('-o2', '--output2', default='./nodes.dict', help='输出文件：Supernode 字典')
+    parser.add_argument('input', nargs='?', type=str,
+                        default=sys.stdin, help='edgelist 文件路径')
+    parser.add_argument('--turn', type=int, default=20, help='迭代轮数')
+    parser.add_argument('-o1', '--output1',
+                        default='./summarized.m', help='输出文件：邻接矩阵')
+    parser.add_argument('-o2', '--output2',
+                        default='./nodes_dict.pkl', help='输出文件：Supernode 字典')
 
     args = parser.parse_args()
-    input_ = args.input
-    dataset = args.dataset
 
-    t = st.loadTensor(input_, '', col_idx=None, col_types=[int, int], hasvalue=0)
-    g = t.toGraph(bipartite=False, directed=False)
-    sm = g.sm
+    data = st.loadTensor(args.input, col_types=[int, int])
+    mapper = st.IntRemapper()
+    coords, values = data.do_map(False, {0: mapper, 1: mapper})
+    N = mapper._idx
+    tensor = st.STensor((coords.T, values), shape=(N, N))
 
-    summarizer = Summarizer(sm)
-    sm_s, node_dict = summarizer.summarize(dataset)
+    summarizer = st.Summarizer(tensor)
+    nodes_dict, sm_s = summarizer.run(args.T)
 
-    scipy.io.savemat(args.output1, {'sm': sm_s})
-    pickle.dump(node_dict, open(args.output2, 'wb'))
+    ssp.save_npz(args.output1, sm_s._data.tocsr())
+    pickle.dump(nodes_dict, open(args.output2, 'wb'))
