@@ -18,7 +18,7 @@ if __name__ == '__main__':
                         default=sys.stdin, help='edgelist 文件路径')
     parser.add_argument('--turn', type=int, default=20, help='迭代轮数')
     parser.add_argument('-o1', '--output1',
-                        default='./summarized.m', help='输出文件：邻接矩阵')
+                        default='./summarized.npz', help='输出文件：邻接矩阵')
     parser.add_argument('-o2', '--output2',
                         default='./nodes_dict.pkl', help='输出文件：Supernode 字典')
 
