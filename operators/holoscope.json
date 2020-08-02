@@ -101,7 +101,7 @@
 		{
 		    "name": "level",
 		    "type": "choices",
-		    "value": "0,1,2,3",
+		    "choice": "0,1,2,3",
 		    "required": "false",
 		    "default": "0",
 		    "description": "检测运用信号的情况: 0.拓扑，1.拓扑与时间，2.拓扑与类别, 3.拓扑、时间、类别"
