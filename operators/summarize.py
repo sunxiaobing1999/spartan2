@@ -33,5 +33,7 @@ if __name__ == '__main__':
     summarizer = st.Summarizer(tensor)
     nodes_dict, sm_s = summarizer.run(args.T)
 
+
     ssp.save_npz(args.output1, sm_s._data.tocsr())
     pickle.dump(nodes_dict, open(args.output2, 'wb'))
+

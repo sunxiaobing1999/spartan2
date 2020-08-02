@@ -7,14 +7,14 @@
 	    "cmd": "iat.py",
 	    "type": "python",
 	    "version": "1.0",
-	    "description": "用户时序行为分析及异常检测",
+	    "description": "用户时序行为分析及异常检测  \\n ##contributors:  \\n 1. Jiabao Zhang  \\n2.Shanglin Yang  \\n1. Shenghua Liu, liushenghua@ict.ac.cn",
 	    "category": "时间序列挖掘",
 	    "developer": "中科院计算所",
 	    "input": [
 		{
 		    "name": "input",
 		    "format": "csv",
-		    "description": "输入文件路径, 文件格式不限于下面(默认)顺序和时间格式\\n ##contributors:\\n 1. Jiabao Zhang \\n2.Shanglin Yang \\n1. Shenghua Liu, liushenghua@ict.ac.cn",
+		    "description": "输入文件路径, 文件格式不限于下面(默认)顺序和时间格式",
 		    "table": [
 			{
 			    "name": "时间",
