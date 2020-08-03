@@ -25,10 +25,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     data = st.loadTensor(args.input, col_types=[int, int])
-    mapper = st.IntRemapper()
-    coords, values = data.do_map(False, {0: mapper, 1: mapper})
+    mapper = st.DenseIntMapper()
+    tensor = data.toSTensor(hasvalue=False, mappers={0: mapper, 1: mapper})
     N = mapper._idx
-    tensor = st.STensor((coords.T, values), shape=(N, N))
+    tensor.shape = (N, N)
 
     summarizer = st.Summarizer(tensor)
     nodes_dict, sm_s = summarizer.run(args.T)
