@@ -2,9 +2,9 @@
 import argparse
 import sys,torch,json,os
 import numpy as np
-import spartan2.spartan as st
+import spartan as st
+import torch
 
-st.config(st.engine.SINGLEMACHINE)
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 if __name__ == "__main__":
@@ -30,22 +30,21 @@ if __name__ == "__main__":
     
     args_output = args.output
 
-    input_path,input_name=os.path.split(args_input)
     
 
     # load time data
-    data = st.loadTensor(name=input_name, path=input_path, col_types=[float, float, float], hasvalue=True)
-    time_series = data.toTimeseries(attrlabels=args_attrlabels)
-    ad_model = st.anomaly_detection.create(time_series, st.ad_policy.BEATGAN, "my_model")
+    time, value = st.loadTensor(path=args_input).toDTensor(hastticks=True)
+    time_series = st.Timeseries(value, time)
 
     with open(args_config, 'r') as load_f:
         param = json.load(load_f)
         param["model_path"] = args_model_path
 
-    ad_model.init_model(param, device)
+    beatgan = st.BeatGAN(time_series, **param)
+    beatgan.fit()
+    res = beatgan.predict()
 
-    beatgan,res = ad_model.run(None, time_series, param, device)
 
-    np.savetxt("foo.csv", res, delimiter=",")
+    np.savetxt(args_output, res, delimiter=",")
  
     

@@ -1,0 +1,58 @@
+{
+    "conf": {
+        "version": "1.0",
+        "type": "operator",
+        "operator": {
+            "name": "beatlex",
+            "cmd": "beatlex.py",
+            "type": "python",
+            "version": "1.0",
+            "description": "基于MDTW的时间序列模式挖掘 ##contributors: \\n 1. Shenghua Liu<liushenghua@ict.ac.cn> 2. Quan Ding<tdingquan@gmail.com>",
+            "category": "时间序列挖掘",
+            "developer": "中国科学院网络数据科学与技术重点实验室",
+            "input": [
+                {
+                    "name": "input",
+                    "format": "csv",
+                    "description": "输入文件路径\\n",
+                    "table": [
+                        {
+                            "name": "时间戳",
+                            "type": "int",
+                            "min": "0",
+                            "max": "",
+                            "description": "当前时间戳"
+                        },
+                        {
+                            "name": "维度1-n",
+                            "type": "matrix",
+                            "min": "",
+                            "max": "",
+                            "description": "输入数据"
+                        }
+                    ]
+                }
+            ],
+            "argument": [
+                {
+                    "name": "model_config",
+                    "type": "string",
+                    "required": "true",
+                    "default": "beatlex_config.json",
+                    "description": "模型参数配置文件"
+                }
+            ],
+            "output": [
+                {
+                    "name": "output",
+                    "format": ".json",
+                    "description": "输出文件名"
+                }
+            ],
+            "requirements": {
+                "type": "string",
+                "default": "./requirements.txt"
+            }
+        }
+    }
+}
