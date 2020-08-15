@@ -36,6 +36,8 @@ if __name__ == "__main__":
                         help="定位的中心点y轴坐标")
     parser.add_argument("--radius", type=int, default=100,
                         help="以中心点为圆心的搜索半径")
+    parser.add_argument("--k", type=int, default=10,
+                        help="前k个可疑用户")
     parser.add_argument("-o", "--output", type=str, default='/source/out.jpg',
                         help="输出文件名")
     args = parser.parse_args()
@@ -52,15 +54,9 @@ if __name__ == "__main__":
     argsx = args.x
     argsy = args.y
     argsradius = args.radius
+    argsk = args.argsk
     argsoutput = args.output
     # outfile='../output/test.iat'
-    
-    #     aggts = ioutil.extracttimes(argsinput, outfile=None, timeidx=argstimeidx, timeformat=argstimeformat, delimeter=argsdelimeter,
-    #                                 isbyte=True, comments='#', nodetype=str, groupids=argsgroupids)
-    #     instance = iatutil.IAT()
-    #     instance.calaggiat(aggts)
-    #     xs, ys = instance.getiatpairs()
-    #     drawutil.drawRectbin(xs, ys, gridsize=20, xlabel=argsxlabel, ylabel=argsylabel, outfig=argsoutput)
     
     tensor_data = st.loadTensor(path=argsinput, sep=argsdelimeter)
     aggts = tensor_data.log_to_aggts(time_col=argstimeidx, group_col=argsgroupids, timeformat=argstimeformat)
@@ -77,5 +73,9 @@ if __name__ == "__main__":
     recthistogram = st.RectHistogram(xscale='log', yscale='log', gridsize=argsgridsize)
     fig, H, xedges, yedges = recthistogram.draw(xs, ys, xlabel=argsxlabel, ylabel=argsylabel)
     recthistogram.find_peak_rect(xs, ys, H, xedges, yedges, x=argsx, y=argsy, radius=argsradius)
+    
+    usrlist = instance.find_iatpair_user_ordered(coordpairs, k=argsk)
+    instance.drawIatPdf(usrlist)
+    
     
 
