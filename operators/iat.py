@@ -10,9 +10,7 @@
 import argparse
 import sys
 
-import spartan2.basicutil as iatutil
-import spartan2.drawutil as drawutil
-import spartan2.ioutil as ioutil
+import spartan as st
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="")
@@ -26,12 +24,18 @@ if __name__ == "__main__":
                         help="输入数据的时间格式;示例数据%Y-%m-%d %H:%M:%S")
     parser.add_argument("--timeidx", type=int, default=0,
                         help="时间列的id(id从0开始);示例数据：0 (表示第一列)")
-    parser.add_argument("--groupids", nargs='*', type=list, default=[0],
-                        help=")时间列的id(id从0开始);示例数据：0 (表示第一列)")
+    parser.add_argument("--groupids", nargs='*', type=list, default=[1],
+                        help=")分组的id(id从0开始);示例数据：1 (表示第二列)")
     parser.add_argument("--xlabel", type=str, default='IATn',
                         help="Histogram横坐标的标签")
     parser.add_argument("--ylabel", type=str, default='IATn+1',
                         help="Histogram纵坐标的标签")
+    parser.add_argument("--x", type=int, default=100,
+                        help="定位的中心点x轴坐标")
+    parser.add_argument("--y", type=int, default=100,
+                        help="定位的中心点y轴坐标")
+    parser.add_argument("--radius", type=int, default=100,
+                        help="以中心点为圆心的搜索半径")
     parser.add_argument("-o", "--output", type=str, default='/source/out.jpg',
                         help="输出文件名")
     args = parser.parse_args()
@@ -45,11 +49,33 @@ if __name__ == "__main__":
     argsgroupids = args.groupids
     argsxlabel = args.xlabel
     argsylabel = args.ylabel
+    argsx = args.x
+    argsy = args.y
+    argsradius = args.radius
     argsoutput = args.output
     # outfile='../output/test.iat'
-    aggts = ioutil.extracttimes(argsinput, outfile=None, timeidx=argstimeidx, timeformat=argstimeformat, delimeter=argsdelimeter,
-                                isbyte=True, comments='#', nodetype=str, groupids=argsgroupids)
-    instance = iatutil.IAT()
+    
+    #     aggts = ioutil.extracttimes(argsinput, outfile=None, timeidx=argstimeidx, timeformat=argstimeformat, delimeter=argsdelimeter,
+    #                                 isbyte=True, comments='#', nodetype=str, groupids=argsgroupids)
+    #     instance = iatutil.IAT()
+    #     instance.calaggiat(aggts)
+    #     xs, ys = instance.getiatpairs()
+    #     drawutil.drawRectbin(xs, ys, gridsize=20, xlabel=argsxlabel, ylabel=argsylabel, outfig=argsoutput)
+    
+    tensor_data = st.loadTensor(path=argsinput, sep=argsdelimeter)
+    aggts = tensor_data.log_to_aggts(time_col=argstimeidx, group_col=argsgroupids, timeformat=argstimeformat)
+    
+    instance = st.IAT()
     instance.calaggiat(aggts)
     xs, ys = instance.getiatpairs()
-    drawutil.drawRectbin(xs, ys, gridsize=20, xlabel=argsxlabel, ylabel=argsylabel, outfig=argsoutput)
+    
+    # invoke drawHexbin function
+    st.drawHexbin(xs, ys, gridsize=argsgridsize, xlabel=argsxlabel, ylabel=argsylabel)
+    # invoke drawRectbin function
+    st.drawRectbin(xs, ys, gridsize=argsgridsize, xlabel=argsxlabel, ylabel=argsylabel)
+    
+    recthistogram = st.RectHistogram(xscale='log', yscale='log', gridsize=argsgridsize)
+    fig, H, xedges, yedges = recthistogram.draw(xs, ys, xlabel=argsxlabel, ylabel=argsylabel)
+    recthistogram.find_peak_rect(xs, ys, H, xedges, yedges, x=argsx, y=argsy, radius=argsradius)
+    
+
