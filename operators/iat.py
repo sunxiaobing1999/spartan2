@@ -59,7 +59,9 @@ if __name__ == "__main__":
     # outfile='../output/test.iat'
     
     tensor_data = st.loadTensor(path=argsinput, sep=argsdelimeter)
-    aggts = tensor_data.log_to_aggts(time_col=argstimeidx, group_col=argsgroupids, timeformat=argstimeformat)
+    coords, data = tensor_data.do_map(hasvalue=False, mappers={timeidx:st.TimeMapper(timeformat=argstimeformat, timebin = 1, mints = 0)})
+    aggts = tensor_data.to_aggts(coords, time_col=argstimeidx, group_col=argsgroupids)
+
     
     instance = st.IAT()
     instance.calaggiat(aggts)
