@@ -57,25 +57,26 @@ if __name__ == "__main__":
     argsk = args.argsk
     argsoutput = args.output
     # outfile='../output/test.iat'
-    
+
     tensor_data = st.loadTensor(path=argsinput, sep=argsdelimeter)
-    aggts = tensor_data.log_to_aggts(time_col=argstimeidx, group_col=argsgroupids, timeformat=argstimeformat)
-    
+    coords, data = tensor_data.do_map(hasvalue=False, mappers={timeidx:st.TimeMapper(timeformat=argstimeformat, timebin = 1, mints = 0)})
+    aggts = tensor_data.to_aggts(coords, time_col=argstimeidx, group_col=argsgroupids)
+
     instance = st.IAT()
     instance.calaggiat(aggts)
     xs, ys = instance.getiatpairs()
-    
+
     # invoke drawHexbin function
     st.drawHexbin(xs, ys, gridsize=argsgridsize, xlabel=argsxlabel, ylabel=argsylabel)
     # invoke drawRectbin function
     st.drawRectbin(xs, ys, gridsize=argsgridsize, xlabel=argsxlabel, ylabel=argsylabel)
-    
+
     recthistogram = st.RectHistogram(xscale='log', yscale='log', gridsize=argsgridsize)
     fig, H, xedges, yedges = recthistogram.draw(xs, ys, xlabel=argsxlabel, ylabel=argsylabel)
     recthistogram.find_peak_rect(xs, ys, H, xedges, yedges, x=argsx, y=argsy, radius=argsradius)
-    
+
     usrlist = instance.find_iatpair_user_ordered(coordpairs, k=argsk)
     instance.drawIatPdf(usrlist)
-    
-    
+
+
 
