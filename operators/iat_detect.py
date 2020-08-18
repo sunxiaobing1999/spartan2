@@ -61,9 +61,9 @@ if __name__ == "__main__":
 
     # rect: instance of class RectHistogram
     rect = st.RectHistogram(xscale='log', yscale='log', gridsize=argsgridsize)
-    fig, H, xedges, yedges = rect.draw(xs, ys, outfig=argsoutfig, xlabel=argsxlabel, ylabel=argsylabel)
+    fig = rect.draw(xs, ys, outfig=argsoutfig, xlabel=argsxlabel, ylabel=argsylabel)
 
-    iatpairs = rect.find_peak_rect(xs, ys, H, xedges, yedges, x=argsx, y=argsy, radius=argsradius)
+    iatpairs = rect.find_peak_rect(x=argsx, y=argsy, radius=argsradius)
     usrlist = instance.find_iatpair_user_ordered(iatpairs, k=argsk)
     df = pd.DataFrame({'user':usrlist})
     df.to_csv(argsoutfile, index=False)
