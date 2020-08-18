@@ -82,8 +82,7 @@ if __name__ == "__main__":
     parser.add_argument("--delimeter", type=str, default=',',
                         help="输入文件分割符;示例1: , 示例2: \x01")
     parser.add_argument("--timeformat", type=str, default='%Y-%m-%d %H:%M:%S',
-                        help="输入数据的时间格式;示例数据%Y-%m-%d %H:%M:%S. \
-                        timestamp表示时间已经是时间戳")
+                        help="输入数据的时间格式, 如%%Y-%%m-%%d %%H:%%M:%%S. 若是timestamp表示时间已经是时间戳")
     parser.add_argument("--timeidx", type=int, default=2,
                         help="时间列的id(id从0开始);示例数据：0 (表示第一列)")
     parser.add_argument("--hasvalue", action='store_true',
