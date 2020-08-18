@@ -3,72 +3,30 @@
 		"version": "1.0",
 		"type": "operator",
 		"operator": {
-			"name": "iat_find_user",
-			"cmd": "iat_find_user.py",
+			"name": "iat_detect",
+			"cmd": "iat_detect.py",
 			"type": "python",
 			"version": "1.0",
-			"description": "用户时序行为分析及异常检测, contributors: Jiabao Zhang<zhangjiabao18@mails.ucas.edu.cn>",
+			"description": "用户时序行为分析及异常检测, contributors: \\n 1.Jiabao Zhang<zhangjiabao18@mails.ucas.edu.cn> \\n 2.Xiaobing Sun",
 			"category": "时间序列挖掘",
 			"developer": "中国科学院网络数据科学与技术重点实验室",
 			"input": [
 				{
 					"name": "input",
-					"format": "csv",
-					"description": "输入文件路径, 文件格式不限于下面(默认)顺序和时间格式",
+					"format": "pkl",
+					"description": "输入文件路径",
 					"table": [
 						{
-							"name": "时间",
-							"type": "string",
+							"name": "instance",
+							"type": "spartan.model.iat.iat.IAT",
 							"min": "",
 							"max": "",
-							"description": "格式为示例数据%Y-%m-%d %H:%M:%S"
-						},
-						{
-							"name": "用户ID",
-							"type": "int",
-							"min": "0",
-							"max": "",
-							"description": "从0开始的整数"
-						},
-						{
-							"name": "消息ID",
-							"type": "int",
-							"min": "",
-							"max": "",
-							"description": "长度为16位不连续数字"
+							"description": "算子iat生成的pkl文件"
 						}
 					]
 				}
 			],
 			"argument": [
-				{
-					"name": "delimeter",
-					"type": "string",
-					"required": "false",
-					"default": ",",
-					"description": "输入文件分割符;示例1: , 示例2: \\x01 "
-				},
-				{
-					"name": "groupids",
-					"type": "list",
-					"required": "false",
-					"default": "1",
-					"description": "按照groupid(s)聚合时间序列,id从0开始);示例数据：1 (表示第二列)"
-				},
-				{
-					"name": "timeidx",
-					"type": "int",
-					"required": "false",
-					"default": "0",
-					"description": "时间列的id(id从0开始);示例数据：0 (表示第一列)"
-				},
-				{
-					"name": "timeformat",
-					"type": "string",
-					"required": "false",
-					"default": "%Y-%m-%d %H:%M:%S",
-					"description": "输入数据的时间格式;示例数据%Y-%m-%d %H:%M:%S"
-				},
 				{
 					"name": "gridsize",
 					"type": "int",
@@ -103,20 +61,27 @@
 					"required": "true",
 					"default": "0",
 					"description": "Histogram查询点的纵坐标"
-				},
+        },
 				{
 					"name": "radius",
 					"type": "float",
 					"required": "true",
 					"default": "1",
 					"description": "Histogram的查询半径"
+        },
+        {
+					"name": "k",
+					"type": "int",
+					"required": "true",
+					"default": "10",
+					"description": "查找top-k可疑用户"
 				}
 			],
 			"output": [
 				{
 					"name": "outfig",
 					"format": ".jpg",
-					"description": "输出图片"
+					"description": "输出Histogram图片"
 				},
 				{
 					"name": "outfile",
@@ -131,6 +96,11 @@
 					    "description": "将用户ID存储为string类型"
 					}
 					]
+        },
+        {
+					"name": "outpdf",
+					"format": ".jpg",
+					"description": "输出top-k用户的iat分布图片"
 				}
 			],
 			"requirements": {
