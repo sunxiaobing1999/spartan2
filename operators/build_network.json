@@ -1,0 +1,59 @@
+{
+	"conf": {
+		"version": "0.1",
+		"type": "operator",
+		"operator": {
+			"name": "build_network",
+			"cmd": "build_network.py",
+			"type": "python",
+			"version": "1.0",
+			"description": "构建相似度矩阵，\n # contributors\n 1. Siwei Zeng<zengsw_study@qq.com>",
+			"category": "图挖掘",
+			"developer": "中科院计算所网络数据科学与技术重点实验室",
+			"input": [
+				{
+					"name": "input",
+					"format": ".tsv",
+					"description": "文件路径",
+					"table": [
+						{
+							"name": "source",
+							"type": "int",
+							"min": "0",
+							"max": "",
+							"description": "源节点 id"
+						},
+						{
+							"name": "target",
+							"type": "int",
+							"min": "0",
+							"max": "",
+							"description": "目标节点 id"
+						}
+					]
+				}
+			],
+			"argument": [
+				{
+					"name": "k",
+					"type": "int",
+					"required": "false",
+					"default": "1000",
+					"description": "采样邻居数"
+				}
+			],
+			"output": [
+				{
+					"name": "output1",
+					"format": "m",
+					"default": "./matrix.edgelist",
+					"description": "相似度矩阵"
+				}
+			],
+			"requirements": {
+				"type": "string",
+				"default": "./requirements.txt"
+			}
+		}
+	}
+}
