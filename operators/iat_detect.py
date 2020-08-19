@@ -63,7 +63,8 @@ if __name__ == "__main__":
     rect = st.RectHistogram(xscale='log', yscale='log', gridsize=argsgridsize)
     fig = rect.draw(xs, ys, outfig=argsoutfig, xlabel=argsxlabel, ylabel=argsylabel)
 
-    iatpairs = rect.find_peak_rect(x=argsx, y=argsy, radius=argsradius)
+    xrange, yrange = rect.find_peak_range(x=argsx, y=argsy, radius=argsradius)
+    iatpairs = rect.find_peak_rect(xrange, yrange)
     usrlist = instance.find_iatpair_user_ordered(iatpairs, k=argsk)
     df = pd.DataFrame({'user':usrlist})
     df.to_csv(argsoutfile, index=False)
