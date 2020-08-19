@@ -7,7 +7,7 @@
 	    "cmd": "iat.py",
 	    "type": "python",
 	    "version": "1.0",
-	    "description": "用户时序行为分析及异常检测  \\n ##contributors:  \\n 1. Jiabao Zhang  \\n2.Shanglin Yang  \\n1. Shenghua Liu, liushenghua@ict.ac.cn",
+	    "description": "用户时序行为分析及异常检测  \\n ##contributors:  \\n 1. Jiabao Zhang  \\n2.Shanglin Yang  \\n3. Shenghua Liu, liushenghua@ict.ac.cn \\n4. Xiaobing Sun",
 	    "category": "时间序列挖掘",
 	    "developer": "中科院计算所",
 	    "input": [
@@ -70,6 +70,13 @@
 		    "description": "输入数据的时间格式;示例数据%Y-%m-%d %H:%M:%S"
 		},
 		{
+			"name": "type",
+			"type": "str",
+			"required": "false",
+			"default": "Rectangle",
+			"description": "Histogram的类型（Rectangle 或 Hexagon），示例格式:Rectangle"
+		},
+		{
 		    "name": "gridsize",
 		    "type": "int",
 		    "required": "false",
@@ -93,9 +100,14 @@
 	    ],
 	    "output": [
 		{
-		    "name": "output",
-		    "format": ".jpg",
-		    "description": "输出图片"
+		    "name": "outpkl",
+		    "format": ".pkl",
+		    "description": "输出文件"
+		},
+		{
+			"name": "outfig",
+			"format": ".jpg",
+			"description": "输出图片"
 		}
 	    ],
 	    "requirements": {
