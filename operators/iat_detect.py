@@ -65,8 +65,12 @@ if __name__ == "__main__":
 
     xrange, yrange = rect.find_peak_range(x=argsx, y=argsy, radius=argsradius)
     iatpairs = rect.find_peak_rect(xrange, yrange)
-    usrlist = instance.find_iatpair_user_ordered(iatpairs, k=argsk)
+    instance.get_iatpair_user_dict()
+    instance.get_user_dict(iatpairs)
+    
+    usrlist = instance.find_topk_user(k=argsk)
     df = pd.DataFrame({'user':usrlist})
     df.to_csv(argsoutfile, index=False)
-
+    
+    instance.caliatcount()
     instance.drawIatPdf(usrlist, outfig=argsoutpdf)
