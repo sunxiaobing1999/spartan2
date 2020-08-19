@@ -25,7 +25,7 @@ if __name__ == "__main__":
     parser.add_argument("--groupids", nargs='*', type=list, default=[1],
                         help=")分组的id(id从0开始);示例数据：1 (表示第二列)")
     parser.add_argument("--type", type=str, default='Rectangle',
-                        help="Histogram的类型")
+                        choices=["Rectangle","Hexagon"], help="Histogram的类型")
     parser.add_argument("--gridsize", type=int, default=100,
                         help="Histogram的网格数，示例格式:100")
     parser.add_argument("--xlabel", type=str, default='IATn',
