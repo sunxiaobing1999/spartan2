@@ -1,0 +1,112 @@
+{
+	"conf": {
+		"version": "1.0",
+		"type": "operator",
+		"operator": {
+			"name": "iat_detect",
+			"cmd": "iat_detect.py",
+			"type": "python",
+			"version": "1.0",
+			"description": "用户时序行为分析及异常检测, contributors: \\n 1.Jiabao Zhang<zhangjiabao18@mails.ucas.edu.cn> \\n 2.Xiaobing Sun",
+			"category": "时间序列挖掘",
+			"developer": "中国科学院网络数据科学与技术重点实验室",
+			"input": [
+				{
+					"name": "input",
+					"format": "pkl",
+					"description": "输入文件路径",
+					"table": [
+						{
+							"name": "instance",
+							"type": "spartan.model.iat.iat.IAT",
+							"min": "",
+							"max": "",
+							"description": "算子iat生成的pkl文件"
+						}
+					]
+				}
+			],
+			"argument": [
+				{
+					"name": "gridsize",
+					"type": "int",
+					"required": "false",
+					"default": "100",
+					"description": "Histogram的网格数，示例格式:100"
+				},
+				{
+					"name": "xlabel",
+					"type": "string",
+					"required": "false",
+					"default": "IATn",
+					"description": "Histogram横坐标的标签"
+				},
+				{
+					"name": "ylabel",
+					"type": "string",
+					"required": "false",
+					"default": "IATn+1",
+					"description": "Histogram纵坐标的标签"
+				},
+				{
+					"name": "x",
+					"type": "float",
+					"required": "true",
+					"default": "0",
+					"description": "Histogram查询点的横坐标"
+				},
+				{
+					"name": "y",
+					"type": "float",
+					"required": "true",
+					"default": "0",
+					"description": "Histogram查询点的纵坐标"
+        },
+				{
+					"name": "radius",
+					"type": "float",
+					"required": "true",
+					"default": "1",
+					"description": "Histogram的查询半径"
+        },
+        {
+					"name": "k",
+					"type": "int",
+					"required": "true",
+					"default": "10",
+					"description": "查找top-k可疑用户"
+				}
+			],
+			"output": [
+				{
+					"name": "outfig",
+					"format": ".jpg",
+					"description": "输出Histogram图片"
+				},
+				{
+					"name": "outfile",
+					"format": "csv",
+					"description": "输出文件",
+					"table": [
+					{
+					    "name": "用户ID",
+					    "type": "string",
+					    "min": "",
+					    "max": "",
+					    "description": "将用户ID存储为string类型"
+					}
+					]
+        },
+        {
+					"name": "outpdf",
+					"format": ".jpg",
+					"description": "输出top-k用户的iat分布图片"
+				}
+			],
+			"requirements": {
+				"type": "string",
+				"default": "./requirements.txt"
+			}
+		}
+	}
+}
